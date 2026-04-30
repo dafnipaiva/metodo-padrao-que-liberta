@@ -1,0 +1,2157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Método Padrão que Liberta — Dafni Paiva</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --cream: #f7f5f1;
+        --cream2: #f0ede8;
+        --ink: #1c1b22;
+        --ink2: #3a3845;
+        --muted: #8a8799;
+        --slate: #6e6e8f;
+        --slate-light: #e8e8f2;
+        --gold: #c9a84c;
+        --gold-light: #f5edd8;
+        --white: #ffffff;
+        --line: rgba(110, 110, 143, 0.14);
+        --line2: rgba(110, 110, 143, 0.08);
+        --f-display: "Playfair Display", Georgia, serif;
+        --f-body: "DM Sans", sans-serif;
+        --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        --nav-h: 64px;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        background: var(--cream);
+        color: var(--ink);
+        font-family: var(--f-body);
+        font-size: 16px;
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font-family: inherit;
+      }
+      .container {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+      .label {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--slate);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+      }
+      .reveal.up {
+        opacity: 1;
+        transform: none;
+      }
+      .reveal-delay-1 {
+        transition-delay: 0.12s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.24s;
+      }
+
+      /* NAV */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 300;
+        height: var(--nav-h);
+        display: flex;
+        align-items: center;
+        transition: background 0.4s, box-shadow 0.4s;
+      }
+      .nav.stuck {
+        background: rgba(247, 245, 241, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 1px 0 var(--line);
+      }
+      .nav-inner {
+        width: 100%;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nav-logo {
+        font-family: var(--f-display);
+        font-size: 19px;
+        font-weight: 400;
+        font-style: italic;
+        color: var(--ink);
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+      .nav-logo span {
+        color: var(--slate);
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+      .nav-link {
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--ink2);
+        transition: color 0.2s;
+        white-space: nowrap;
+      }
+      .nav-link:hover {
+        color: var(--slate);
+      }
+      .nav-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--slate);
+        color: var(--white);
+        font-size: 13px;
+        font-weight: 500;
+        padding: 10px 20px;
+        border-radius: 40px;
+        transition: background 0.2s, transform 0.2s;
+        white-space: nowrap;
+      }
+      .nav-btn:hover {
+        background: var(--ink);
+        transform: translateY(-1px);
+      }
+
+      /* HERO */
+      .hero {
+        display: grid;
+        grid-template-columns: 52% 48%;
+        min-height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
+      .hero-decor {
+        position: absolute;
+        top: 100px;
+        left: -80px;
+        z-index: 0;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: radial-gradient(
+          ellipse,
+          var(--slate-light) 0%,
+          transparent 70%
+        );
+        opacity: 0.45;
+        pointer-events: none;
+      }
+      .hero-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: calc(var(--nav-h) + 64px) 48px 64px 32px;
+        position: relative;
+        z-index: 2;
+      }
+      .hero-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 32px;
+        animation: fadeUp 0.9s 0.1s var(--ease) both;
+      }
+      .hero-line {
+        width: 32px;
+        height: 1px;
+        background: var(--slate);
+        opacity: 0.5;
+      }
+      .hero-h1 {
+        font-family: var(--f-display);
+        font-size: clamp(34px, 3.8vw, 58px);
+        font-weight: 400;
+        line-height: 1.1;
+        margin-bottom: 24px;
+        animation: fadeUp 0.9s 0.18s var(--ease) both;
+      }
+      .hero-h1 em {
+        font-style: italic;
+        color: var(--slate);
+      }
+      .hero-sub {
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--ink2);
+        line-height: 1.75;
+        max-width: 420px;
+        margin-bottom: 40px;
+        animation: fadeUp 0.9s 0.26s var(--ease) both;
+      }
+      .hero-cta-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        animation: fadeUp 0.9s 0.34s var(--ease) both;
+      }
+      .btn-main {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        width: fit-content;
+        background: var(--ink);
+        color: var(--cream);
+        font-size: 15px;
+        font-weight: 500;
+        padding: 16px 28px;
+        border-radius: 40px;
+        border: none;
+        cursor: pointer;
+        transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+      }
+      .btn-main:hover {
+        background: var(--slate);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(110, 110, 143, 0.25);
+      }
+      .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--slate);
+        transition: gap 0.2s;
+      }
+      .btn-secondary:hover {
+        gap: 12px;
+      }
+      .hero-trust {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+        margin-top: 40px;
+        animation: fadeUp 0.9s 0.42s var(--ease) both;
+      }
+      .hero-trust-pill {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .hero-trust-dot {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: var(--slate);
+        opacity: 0.4;
+      }
+      .hero-right {
+        position: relative;
+      }
+      .hero-img {
+        position: absolute;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: calc(100% - var(--nav-h));
+        object-fit: cover;
+        object-position: center 20%;
+        animation: heroScale 1.4s var(--ease) both;
+      }
+      .hero-right::before {
+        content: "";
+        position: absolute;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        background: linear-gradient(to right, var(--cream) 0%, transparent 16%),
+          linear-gradient(to top, var(--cream) 0%, transparent 10%);
+      }
+
+      /* TRUST STRIP */
+      .trust-strip {
+        background: var(--cream2);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 20px 0;
+      }
+      .trust-strip-inner {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 32px;
+        flex-wrap: wrap;
+      }
+      .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+      .trust-item-icon {
+        color: var(--slate);
+      }
+      .trust-item-text {
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--ink2);
+      }
+      .trust-sep {
+        width: 1px;
+        height: 18px;
+        background: var(--line);
+        flex-shrink: 0;
+      }
+
+      /* DOR */
+      .dor {
+        padding: 104px 0;
+      }
+      .dor-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 80px;
+        align-items: start;
+      }
+      .dor-title {
+        font-family: var(--f-display);
+        font-size: clamp(28px, 3.5vw, 48px);
+        font-weight: 400;
+        line-height: 1.15;
+        margin-top: 16px;
+        margin-bottom: 24px;
+      }
+      .dor-title em {
+        font-style: italic;
+        color: var(--slate);
+      }
+      .dor-body {
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--ink2);
+        line-height: 1.8;
+        margin-bottom: 16px;
+      }
+      .dor-quote {
+        margin-top: 36px;
+        padding: 22px 26px;
+        background: var(--slate-light);
+        border-left: 3px solid var(--slate);
+        border-radius: 0 8px 8px 0;
+      }
+      .dor-quote-text {
+        font-family: var(--f-display);
+        font-size: 17px;
+        font-style: italic;
+        color: var(--slate);
+        line-height: 1.6;
+      }
+      .dor-right {
+        background: var(--white);
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(28, 27, 34, 0.05);
+      }
+      .dor-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+        padding: 22px 26px;
+        border-bottom: 1px solid var(--line2);
+        transition: background 0.2s;
+      }
+      .dor-item:last-child {
+        border-bottom: none;
+      }
+      .dor-item:hover {
+        background: var(--cream);
+      }
+      .dor-item-num {
+        font-family: var(--f-display);
+        font-size: 11px;
+        color: var(--slate);
+        opacity: 0.6;
+        min-width: 18px;
+        margin-top: 4px;
+        font-style: italic;
+      }
+      .dor-item-text {
+        font-size: 15px;
+        font-weight: 300;
+        color: var(--ink2);
+        line-height: 1.65;
+      }
+      .dor-item-text strong {
+        font-weight: 500;
+        color: var(--ink);
+      }
+
+      /* MÉTODO */
+      .metodo {
+        background: var(--cream2);
+        padding: 104px 0;
+      }
+      .metodo-header {
+        max-width: 580px;
+        margin-bottom: 64px;
+      }
+      .metodo-title {
+        font-family: var(--f-display);
+        font-size: clamp(28px, 3.8vw, 48px);
+        font-weight: 400;
+        line-height: 1.15;
+        margin-top: 14px;
+      }
+      .metodo-title em {
+        font-style: italic;
+        color: var(--slate);
+      }
+      .metodo-subtitle {
+        margin-top: 14px;
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--ink2);
+        line-height: 1.75;
+      }
+      .metodo-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .step-card {
+        background: var(--white);
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        padding: 36px 28px;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s var(--ease), box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+      }
+      .step-title {
+        font-family: var(--f-display);
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        line-height: 1.45;
+        min-height: 2.9em;
+      }
+      .step-text {
+        font-size: 14px;
+        font-weight: 300;
+        color: var(--ink2);
+        line-height: 1.75;
+        min-height: 8.8em;
+      }
+      .step-tag {
+        display: inline-block;
+        margin-top: auto;
+        align-self: flex-start;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--slate);
+        background: var(--slate-light);
+        padding: 5px 12px;
+        border-radius: 20px;
+      }
+      /* PERFIS */
+      .perfis {
+        padding: 104px 0;
+      }
+      .perfis-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 48px;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .perfis-title {
+        font-family: var(--f-display);
+        font-size: clamp(26px, 3.5vw, 44px);
+        font-weight: 400;
+        line-height: 1.15;
+        margin-top: 12px;
+      }
+      .perfis-title em {
+        font-style: italic;
+        color: var(--slate);
+      }
+      .perfis-note {
+        font-size: 14px;
+        font-weight: 300;
+        color: var(--muted);
+        max-width: 240px;
+        text-align: right;
+        line-height: 1.6;
+      }
+      .perfis-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .perfil {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 28px 24px;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s var(--ease), box-shadow 0.3s,
+          border-color 0.3s;
+      }
+      .perfil::after {
+        content: attr(data-num);
+        position: absolute;
+        top: -14px;
+        right: 16px;
+        font-family: var(--f-display);
+        font-size: 88px;
+        font-weight: 400;
+        color: var(--cream2);
+        line-height: 1;
+        pointer-events: none;
+      }
+      .perfil:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(110, 110, 143, 0.12);
+        border-color: rgba(110, 110, 143, 0.28);
+      }
+      .perfil-badge {
+        display: inline-block;
+        margin-bottom: 14px;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--slate);
+        background: var(--slate-light);
+        padding: 3px 10px;
+        border-radius: 20px;
+      }
+      .perfil-name {
+        font-family: var(--f-display);
+        font-size: 21px;
+        font-weight: 500;
+        color: var(--ink);
+        margin-bottom: 5px;
+      }
+      .perfil-sub {
+        font-size: 13px;
+        color: var(--muted);
+        font-style: italic;
+        margin-bottom: 12px;
+      }
+      .perfil-desc {
+        font-size: 13px;
+        font-weight: 300;
+        color: var(--ink2);
+        line-height: 1.7;
+      }
+
+      /* PARA QUEM */
+      .paraquem {
+        background: var(--ink);
+        padding: 104px 0;
+      }
+      .paraquem-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+      .paraquem-label {
+        color: rgba(247, 245, 241, 0.38);
+      }
+      .paraquem-title {
+        font-family: var(--f-display);
+        font-size: clamp(26px, 3.5vw, 44px);
+        font-weight: 400;
+        line-height: 1.2;
+        color: var(--cream);
+        margin-top: 14px;
+        margin-bottom: 36px;
+      }
+      .paraquem-title em {
+        font-style: italic;
+        color: var(--gold);
+      }
+      .paraquem-list {
+        list-style: none;
+      }
+      .paraquem-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(247, 245, 241, 0.07);
+      }
+      .paraquem-item:first-child {
+        border-top: 1px solid rgba(247, 245, 241, 0.07);
+      }
+      .paraquem-check {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1px solid rgba(201, 168, 76, 0.38);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .paraquem-text {
+        font-size: 15px;
+        font-weight: 300;
+        color: rgba(247, 245, 241, 0.72);
+        line-height: 1.6;
+      }
+      .paraquem-img-col {
+        position: relative;
+      }
+      .paraquem-img {
+        width: 100%;
+        aspect-ratio: 3/4;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 12px;
+        filter: grayscale(15%) brightness(0.93);
+      }
+      .paraquem-img-overlay {
+        position: absolute;
+        inset: 0;
+        border-radius: 12px;
+        background: linear-gradient(to top, var(--ink) 0%, transparent 40%);
+      }
+      .paraquem-img-card {
+        position: absolute;
+        bottom: 24px;
+        left: 24px;
+        right: 24px;
+        background: rgba(247, 245, 241, 0.06);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(247, 245, 241, 0.1);
+        border-radius: 10px;
+        padding: 18px 20px;
+      }
+      .paraquem-img-card-text {
+        font-family: var(--f-display);
+        font-size: 16px;
+        font-style: italic;
+        color: var(--cream);
+        line-height: 1.5;
+      }
+      .paraquem-img-card-author {
+        font-size: 12px;
+        color: rgba(247, 245, 241, 0.4);
+        margin-top: 6px;
+      }
+
+      /* SOBRE */
+      .sobre {
+        background: var(--cream2);
+        padding: 104px 0;
+      }
+      .sobre-grid {
+        display: grid;
+        grid-template-columns: 400px 1fr;
+        gap: 80px;
+        align-items: start;
+      }
+      .sobre-img-col {
+        position: relative;
+      }
+      .sobre-img {
+        width: 100%;
+        aspect-ratio: 4/5;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 16px;
+      }
+      .sobre-credential {
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 14px 18px;
+        box-shadow: 0 8px 32px rgba(28, 27, 34, 0.08);
+      }
+      .sobre-credential-text {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      .sobre-credential-text strong {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--ink);
+        margin-bottom: 2px;
+      }
+      .sobre-name {
+        font-family: var(--f-display);
+        font-size: clamp(28px, 3.5vw, 46px);
+        font-weight: 400;
+        line-height: 1.15;
+        margin-top: 14px;
+        margin-bottom: 8px;
+      }
+      .sobre-name em {
+        font-style: italic;
+        color: var(--slate);
+      }
+      .sobre-role {
+        font-size: 13px;
+        color: var(--muted);
+        margin-bottom: 32px;
+        font-weight: 300;
+      }
+      .sobre-text {
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--ink2);
+        line-height: 1.85;
+        margin-bottom: 16px;
+      }
+      .sobre-text strong {
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .sobre-blockquote {
+        margin-top: 32px;
+        padding: 24px 28px;
+        background: var(--white);
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        position: relative;
+      }
+      .sobre-blockquote::before {
+        content: '"';
+        position: absolute;
+        top: 8px;
+        left: 20px;
+        font-family: var(--f-display);
+        font-size: 60px;
+        color: var(--slate);
+        opacity: 0.13;
+        line-height: 1;
+      }
+      .sobre-blockquote-text {
+        font-family: var(--f-display);
+        font-size: 18px;
+        font-style: italic;
+        color: var(--ink);
+        line-height: 1.55;
+        padding-top: 6px;
+      }
+
+      /* OFERTA */
+      .oferta {
+        padding: 104px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .oferta::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            ellipse 55% 45% at 15% 50%,
+            var(--slate-light) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 40% 40% at 85% 50%,
+            var(--gold-light) 0%,
+            transparent 60%
+          );
+        opacity: 0.55;
+        pointer-events: none;
+      }
+      .oferta-inner {
+        position: relative;
+        z-index: 1;
+      }
+      .oferta-header {
+        text-align: center;
+        margin-bottom: 52px;
+      }
+      .oferta-title {
+        font-family: var(--f-display);
+        font-size: clamp(28px, 4.5vw, 56px);
+        font-weight: 400;
+        line-height: 1.1;
+        margin-top: 14px;
+      }
+      .oferta-title em {
+        font-style: italic;
+        color: var(--slate);
+      }
+      .oferta-subtitle {
+        max-width: 480px;
+        margin: 16px auto 0;
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--ink2);
+        line-height: 1.75;
+      }
+      .oferta-card {
+        max-width: 680px;
+        margin: 0 auto;
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 52px;
+        box-shadow: 0 24px 80px rgba(28, 27, 34, 0.08);
+        position: relative;
+        overflow: hidden;
+      }
+      .oferta-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(to right, var(--slate), var(--gold));
+      }
+      .oferta-includes {
+        list-style: none;
+        margin-bottom: 40px;
+      }
+      .oferta-include {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--line2);
+      }
+      .oferta-include:first-child {
+        padding-top: 0;
+      }
+      .oferta-include:last-child {
+        border-bottom: none;
+      }
+      .oferta-include-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: var(--slate-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--slate);
+        flex-shrink: 0;
+      }
+      .oferta-include-title {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 3px;
+      }
+      .oferta-include-text {
+        font-size: 13px;
+        font-weight: 300;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .oferta-price-block {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      .oferta-price-label {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+      .oferta-price {
+        font-family: var(--f-display);
+        font-size: 68px;
+        font-weight: 400;
+        color: var(--ink);
+        line-height: 1;
+      }
+      .oferta-price sup {
+        font-size: 22px;
+        vertical-align: super;
+        color: var(--muted);
+      }
+      .oferta-price-note {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+      .oferta-price-parcel {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 5px;
+      }
+      .oferta-price-parcel strong {
+        color: var(--ink);
+        font-weight: 500;
+      }
+      .oferta-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        background: var(--ink);
+        color: var(--cream);
+        font-size: 15px;
+        font-weight: 500;
+        padding: 18px;
+        border-radius: 40px;
+        border: none;
+        cursor: pointer;
+        transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+        margin-bottom: 14px;
+      }
+      .oferta-btn:hover {
+        background: var(--slate);
+        transform: translateY(-2px);
+        box-shadow: 0 16px 48px rgba(110, 110, 143, 0.28);
+      }
+      .oferta-footer-note {
+        text-align: center;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .oferta-footer-note span {
+        color: var(--slate);
+      }
+      .oferta-price-before {
+        font-size: 13px;
+        font-weight: 300;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+      .oferta-price-before span {
+        position: relative;
+        color: var(--muted);
+        margin: 0 4px;
+      }
+      .oferta-price-before span::after {
+        content: "";
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        top: 52%;
+        height: 1px;
+        background: var(--slate);
+        opacity: 0.65;
+      }
+      .oferta-price-before {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 13px;
+        font-weight: 300;
+        color: var(--muted);
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+      }
+      .oferta-price-before span {
+        position: relative;
+        color: var(--muted);
+        margin: 0 2px;
+      }
+      .oferta-price-before span::after {
+        content: "";
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        top: 52%;
+        height: 1px;
+        background: var(--slate);
+        opacity: 0.65;
+      }
+      .oferta-discount-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--slate);
+        background: var(--slate-light);
+        padding: 4px 9px;
+        border-radius: 999px;
+      }
+
+      /* FAQ */
+      .faq {
+        background: var(--cream2);
+        padding: 80px 0;
+      }
+      .faq-header {
+        text-align: center;
+        margin-bottom: 52px;
+      }
+      .faq-title {
+        font-family: var(--f-display);
+        font-size: clamp(26px, 3.5vw, 42px);
+        font-weight: 400;
+        margin-top: 12px;
+      }
+      .faq-title em {
+        font-style: italic;
+        color: var(--slate);
+      }
+      .faq-list {
+        max-width: 660px;
+        margin: 0 auto;
+      }
+      .faq-item {
+        border-bottom: 1px solid var(--line);
+      }
+      .faq-q {
+        width: 100%;
+        background: none;
+        border: none;
+        font-family: var(--f-body);
+        font-size: 15px;
+        font-weight: 400;
+        color: var(--ink);
+        text-align: left;
+        padding: 22px 0;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        transition: color 0.2s;
+      }
+      .faq-q:hover {
+        color: var(--slate);
+      }
+      .faq-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--slate-light);
+        color: var(--slate);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: transform 0.35s var(--ease), background 0.2s;
+      }
+      .faq-q[aria-expanded="true"] .faq-icon {
+        transform: rotate(45deg);
+        background: var(--slate);
+        color: var(--white);
+      }
+      .faq-a {
+        font-size: 14px;
+        font-weight: 300;
+        color: var(--ink2);
+        line-height: 1.8;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.45s var(--ease), padding 0.3s;
+      }
+      .faq-a.open {
+        max-height: 320px;
+        padding-bottom: 22px;
+      }
+
+      /* FOOTER */
+      .footer {
+        background: var(--ink);
+        padding: 44px 0;
+      }
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .footer-logo {
+        font-family: var(--f-display);
+        font-size: 18px;
+        color: var(--cream);
+        font-weight: 400;
+        font-style: italic;
+        cursor: pointer;
+      }
+      .footer-logo span {
+        color: var(--gold);
+      }
+      .footer-social {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .footer-social-link {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 13px;
+        color: rgba(247, 245, 241, 0.45);
+        transition: color 0.2s;
+      }
+      .footer-social-link:hover {
+        color: var(--gold);
+      }
+      .footer-copy {
+        font-size: 12px;
+        color: rgba(247, 245, 241, 0.22);
+        text-align: center;
+        margin-top: 24px;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes heroScale {
+        from {
+          opacity: 0;
+          transform: scale(1.05);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 980px) {
+        .hero {
+          grid-template-columns: 1fr;
+          min-height: auto;
+        }
+        .hero-right {
+          order: 1;
+          height: 65vw;
+          max-height: 400px;
+          margin-top: var(--nav-h);
+        }
+        .hero-img {
+          top: 0;
+          height: 100%;
+          object-position: center 15%;
+        }
+        .hero-right::before {
+          top: 0;
+          background: linear-gradient(
+            to bottom,
+            transparent 55%,
+            var(--cream) 100%
+          );
+        }
+        .hero-left {
+          order: 2;
+          padding: 32px 24px 56px;
+          justify-content: flex-start;
+        }
+        .hero-eyebrow {
+          margin-bottom: 24px;
+        }
+        .hero-decor {
+          display: none;
+        }
+        .nav-link {
+          display: none;
+        }
+        .nav-btn {
+          font-size: 12px;
+          padding: 9px 16px;
+        }
+        .dor-grid,
+        .paraquem-grid,
+        .sobre-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .metodo-steps {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+        .perfis-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        .paraquem-img-col {
+          display: none;
+        }
+        /* Imagem da seção sobre centralizada no mobile */
+        .sobre-img-col {
+          max-width: 300px;
+          margin: 0 auto;
+        }
+        .sobre-credential {
+          display: none;
+        }
+        .oferta-card {
+          padding: 32px 22px;
+        }
+        .trust-sep {
+          display: none;
+        }
+        .perfis-note {
+          text-align: left;
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 600px) {
+        .container {
+          padding: 0 20px;
+        }
+        .perfis-grid {
+          grid-template-columns: 1fr;
+        }
+        .nav-inner {
+          padding: 0 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">Dafni <span>Paiva</span></a>
+        <div class="nav-right">
+          <a href="#metodo" class="nav-link">Como funciona</a>
+          <a href="#sobre" class="nav-link">Sobre mim</a>
+          <a href="#oferta" class="nav-btn"
+            >Quero começar
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" /></svg
+          ></a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-decor"></div>
+      <div class="hero-left">
+        <div class="hero-eyebrow">
+          <div class="hero-line"></div>
+          <span class="label">Método Padrão que Liberta</span>
+        </div>
+        <h1 class="hero-h1">
+          A recusa do seu filho<br />tem um <em>padrão.</em><br />Entender é<br />o
+          que <em>liberta.</em>
+        </h1>
+        <p class="hero-sub">
+          Não é frescura. Não é fase. Não é falha sua. É um padrão sensorial e
+          comportamental que podem ser lidos, entendidos e conduzidos, com
+          método.
+        </p>
+        <div class="hero-cta-wrap">
+          <a href="#oferta" class="btn-main"
+            >Quero entender o padrão do meu filho
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" /></svg
+          ></a>
+        </div>
+        <div class="hero-trust">
+          <div class="hero-trust-pill">
+            <div class="hero-trust-dot"></div>
+            Nutricionista CRN3: 20.860
+          </div>
+          <div class="hero-trust-pill">
+            <div class="hero-trust-dot"></div>
+            Especialista em Seletividade Alimentar
+          </div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <img
+          src="dafni.png"
+          alt="Dafni Paiva — Nutricionista especialista em seletividade alimentar"
+          class="hero-img"
+        />
+      </div>
+    </section>
+
+    <div class="trust-strip">
+      <div class="trust-strip-inner">
+        <div class="trust-item">
+          <div class="trust-item-icon">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <span class="trust-item-text">Atendimento 100% online</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <div class="trust-item-icon">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <span class="trust-item-text"
+            >Análise individualizada dos perfis de recusa</span
+          >
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <div class="trust-item-icon">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <span class="trust-item-text"
+            >Funciona para TEA, TDAH e neurodivergência</span
+          >
+        </div>
+        <div class="trust-sep"></div>
+      </div>
+    </div>
+
+    <section class="dor">
+      <div class="container">
+        <div class="dor-grid">
+          <div class="reveal">
+            <span class="label">Você reconhece isso?</span>
+            <h2 class="dor-title">
+              Você já tentou<br /><em>de tudo.</em><br />E nada mudou.
+            </h2>
+            <p class="dor-body">
+              Insistência, disfarce no alimento, recompensa, exposição repetida
+              sem resultado. O problema não é a estratégia. É que ninguém ainda
+              leu o que está por trás da recusa do seu filho.
+            </p>
+            <p class="dor-body">
+              A recusa alimentar não é aleatória. Ela segue um padrão. E é esse
+              padrão que eu identifico.
+            </p>
+            <div class="dor-quote">
+              <p class="dor-quote-text">
+                Não adianta oferecer mais vezes quando ninguém entendeu ainda o
+                que a criança está recusando de verdade.
+              </p>
+            </div>
+          </div>
+          <div class="reveal reveal-delay-1">
+            <div class="dor-right">
+              <div class="dor-item">
+                <div class="dor-item-num">01</div>
+                <div class="dor-item-text">
+                  O macarrão só pode ser sem molho.
+                  <strong>De outra marca, ele não come.</strong>
+                </div>
+              </div>
+              <div class="dor-item">
+                <div class="dor-item-num">02</div>
+                <div class="dor-item-text">
+                  <strong>Só de ver o alimento no prato</strong>, já chora ou
+                  tenta sair do lugar.
+                </div>
+              </div>
+              <div class="dor-item">
+                <div class="dor-item-num">03</div>
+                <div class="dor-item-text">
+                  Na escola come. Em casa,
+                  <strong>recusa tudo que a família come.</strong>
+                </div>
+              </div>
+              <div class="dor-item">
+                <div class="dor-item-num">04</div>
+                <div class="dor-item-text">
+                  <strong>Você para na frente da geladeira</strong> sem saber o
+                  que preparar.
+                </div>
+              </div>
+              <div class="dor-item">
+                <div class="dor-item-num">05</div>
+                <div class="dor-item-text">
+                  Já ouviu "é frescura" e "vai passar" —
+                  <strong>mas você sente que não é isso.</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="metodo" id="metodo">
+      <div class="container">
+        <div class="metodo-header reveal">
+          <span class="label">Como funciona</span>
+          <h2 class="metodo-title">
+            O Método<br /><em>Padrão que Liberta</em>
+          </h2>
+          <p class="metodo-subtitle">
+            Não é uma orientação genérica. É um processo para entender o padrão
+            de recusa do seu filho antes de definir por onde começar.
+          </p>
+        </div>
+        <div class="metodo-steps">
+          <div class="step-card reveal">
+            <div class="step-num">01</div>
+            <div class="step-title">Você me conta o cenário real</div>
+            <p class="step-text">
+              Antes do atendimento, você responde um formulário detalhado sobre
+              a alimentação do seu filho, os alimentos aceitos, as recusas, as
+              reações na refeição e o que já foi tentado em casa.
+            </p>
+            <span class="step-tag">Formulário inicial</span>
+          </div>
+          <div class="step-card reveal reveal-delay-1">
+            <div class="step-num">02</div>
+            <div class="step-title">Eu leio os padrões por trás da recusa</div>
+            <p class="step-text">
+              Com base nas respostas, eu analiso quais perfis de recusa aparecem
+              com mais força e como eles se combinam no comportamento alimentar
+              da criança.
+            </p>
+            <span class="step-tag">Análise individual</span>
+          </div>
+          <div class="step-card reveal reveal-delay-2">
+            <div class="step-num">03</div>
+            <div class="step-title">
+              Nós conversamos sobre o caminho possível
+            </div>
+            <p class="step-text">
+              No atendimento online, eu faço a devolutiva da análise, explico o
+              que pode estar travando a alimentação e mostro os primeiros passos
+              para conduzir o caso com mais clareza.
+            </p>
+            <span class="step-tag">Devolutiva online</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="perfis">
+      <div class="container">
+        <div class="perfis-header reveal">
+          <div>
+            <span class="label">Os 6 perfis de recusa</span>
+            <h2 class="perfis-title">
+              Cada recusa tem<br />uma <em>lógica por trás.</em>
+            </h2>
+          </div>
+          <p class="perfis-note">
+            Identificar os perfis do seu filho é o que torna a condução possível
+            e assertiva.
+          </p>
+        </div>
+        <div class="perfis-grid">
+          <div class="perfil reveal" data-num="1">
+            <span class="perfil-badge">Perfil 1</span>
+            <div class="perfil-name">Sensível</div>
+            <div class="perfil-sub">A criança que sente demais</div>
+            <p class="perfil-desc">
+              Os sentidos dela percebem mais do que os seus. Morder um tomate e
+              sentir a parte gelatinosa, fria e escorregadia na boca é
+              insuportável.
+            </p>
+          </div>
+          <div class="perfil reveal reveal-delay-1" data-num="2">
+            <span class="perfil-badge">Perfil 2</span>
+            <div class="perfil-name">Intenso</div>
+            <div class="perfil-sub">A criança que precisa de mais</div>
+            <p class="perfil-desc">
+              Os sentidos dela precisam de intensidade para processar o que está
+              comendo. Frango cozido não. Frango empanado e crocante, sim.
+            </p>
+          </div>
+          <div class="perfil reveal reveal-delay-2" data-num="3">
+            <span class="perfil-badge">Perfil 3</span>
+            <div class="perfil-name">Rígido</div>
+            <div class="perfil-sub">
+              A criança que só aceita o que já conhece
+            </div>
+            <p class="perfil-desc">
+              Segurança para ela é saber exatamente o que vai vir no prato. O
+              nugget precisa ser da mesma marca. O feijão não pode tocar o
+              arroz.
+            </p>
+          </div>
+          <div class="perfil reveal" data-num="4">
+            <span class="perfil-badge">Perfil 4</span>
+            <div class="perfil-name">Reativo</div>
+            <div class="perfil-sub">A criança que muda conforme o ambiente</div>
+            <p class="perfil-desc">
+              A recusa dela não começa no alimento. Começa no ambiente. Na avó,
+              sem pressão, ela experimenta. Em casa, recusa até o que costuma
+              aceitar.
+            </p>
+          </div>
+          <div class="perfil reveal reveal-delay-1" data-num="5">
+            <span class="perfil-badge">Perfil 5</span>
+            <div class="perfil-name">Traumatizado</div>
+            <div class="perfil-sub">A criança que associou comer ao perigo</div>
+            <p class="perfil-desc">
+              O corpo dela aprendeu que comer pode machucar. Teve um engasgo com
+              carne e passou a não aceitar mais nenhum tipo de carne.
+            </p>
+          </div>
+          <div class="perfil reveal reveal-delay-2" data-num="6">
+            <span class="perfil-badge">Perfil 6</span>
+            <div class="perfil-name">Desinteressado</div>
+            <div class="perfil-sub">A criança que não liga para comida</div>
+            <p class="perfil-desc">
+              A comida não é relevante para ela. Qualquer coisa é mais
+              interessante. Dá três garfadas no que adora e empurra o prato.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="paraquem">
+      <div class="container">
+        <div class="paraquem-grid">
+          <div class="reveal">
+            <span class="label paraquem-label"
+              >Para quem é este atendimento</span
+            >
+            <h2 class="paraquem-title">
+              Para crianças que<br /><em>travam, sofrem</em><br />ou recusam
+              demais.
+            </h2>
+            <ul class="paraquem-list">
+              <li class="paraquem-item">
+                <div class="paraquem-check">
+                  <svg
+                    width="9"
+                    height="9"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#c9a84c"
+                    stroke-width="2.5"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span class="paraquem-text"
+                  >Crianças que comem poucos alimentos e recusam quase
+                  tudo</span
+                >
+              </li>
+              <li class="paraquem-item">
+                <div class="paraquem-check">
+                  <svg
+                    width="9"
+                    height="9"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#c9a84c"
+                    stroke-width="2.5"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span class="paraquem-text"
+                  >Crianças que recusam pela textura, cheiro ou aparência do
+                  alimento</span
+                >
+              </li>
+              <li class="paraquem-item">
+                <div class="paraquem-check">
+                  <svg
+                    width="9"
+                    height="9"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#c9a84c"
+                    stroke-width="2.5"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span class="paraquem-text"
+                  >Crianças que travam ou sofrem intensamente na hora de
+                  comer</span
+                >
+              </li>
+              <li class="paraquem-item">
+                <div class="paraquem-check">
+                  <svg
+                    width="9"
+                    height="9"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#c9a84c"
+                    stroke-width="2.5"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span class="paraquem-text"
+                  >Crianças com dificuldade para comer fora de casa</span
+                >
+              </li>
+              <li class="paraquem-item">
+                <div class="paraquem-check">
+                  <svg
+                    width="9"
+                    height="9"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#c9a84c"
+                    stroke-width="2.5"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span class="paraquem-text"
+                  >Crianças com TEA, TDAH ou neurodivergência, especialmente
+                  quando a seletividade é intensa</span
+                >
+              </li>
+              <li class="paraquem-item">
+                <div class="paraquem-check">
+                  <svg
+                    width="9"
+                    height="9"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#c9a84c"
+                    stroke-width="2.5"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <span class="paraquem-text"
+                  >Famílias que já tentaram tudo e ainda não entendem o que está
+                  travando</span
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="paraquem-img-col reveal reveal-delay-1">
+            <img
+              src="crianca.png"
+              alt="Criança na hora da refeição"
+              class="paraquem-img"
+            />
+            <div class="paraquem-img-overlay"></div>
+            <div class="paraquem-img-card">
+              <p class="paraquem-img-card-text">
+                Você olha pro seu filho na hora da comida e não entende o que
+                acontece com ele.
+              </p>
+              <p class="paraquem-img-card-author">
+                Dafni Paiva · @nutridafnipaiva
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sobre" id="sobre">
+      <div class="container">
+        <div class="sobre-grid">
+          <div class="sobre-img-col reveal">
+            <img src="dafni-quem.png" alt="Dafni Paiva" class="sobre-img" />
+            <div class="sobre-credential">
+              <p class="sobre-credential-text">
+                <strong>Dafni Paiva</strong>Nutricionista · CRN3: 20.860<br />Especialista
+                em Seletividade Alimentar
+              </p>
+            </div>
+          </div>
+          <div class="reveal reveal-delay-1">
+            <span class="label">Quem é Dafni Paiva</span>
+            <h2 class="sobre-name">
+              Antes de estudar<br />o tema, eu <em>vivi ele.</em>
+            </h2>
+            <p class="sobre-role">
+              Nutricionista · CRN3: 20.860 · Especialista em Seletividade
+              Alimentar · @nutridafnipaiva
+            </p>
+            <p class="sobre-text">
+              Cresci ouvindo que era frescura. Por falta de compreensão, acabei
+              aceitando esse rótulo. Mas dentro de mim havia muito mais: culpa,
+              frustração, ansiedade e o desejo de comer coisas que meu corpo
+              simplesmente rejeitava.
+            </p>
+            <p class="sobre-text">
+              Foi só na faculdade de Nutrição que uma professora observou meu
+              comportamento e me falou sobre seletividade alimentar. Fiz
+              especializações, me aprofundei no tema e desenvolvi um olhar
+              próprio sobre os padrões de recusa.
+            </p>
+            <p class="sobre-text">
+              Usei tudo o que aprendi para desenvolver um método que me ajudou a
+              ampliar meu repertório alimentar.
+              <strong>E o que antes era uma dor virou propósito:</strong> ajudar
+              famílias a entenderem o filho com mais precisão, sem culpa e sem
+              tentativa e erro.
+            </p>
+            <div class="sobre-blockquote">
+              <p class="sobre-blockquote-text">
+                A recusa do seu filho não é aleatória. Ela segue um padrão. E é
+                esse padrão que muda tudo quando você finalmente consegue ler.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="oferta" id="oferta">
+      <div class="container oferta-inner">
+        <div class="oferta-header reveal">
+          <span class="label">Investimento</span>
+          <h2 class="oferta-title">
+            Análise de Padrões<br />+ <em>Atendimento Individual</em>
+          </h2>
+          <p class="oferta-subtitle">
+            Uma análise individualizada da recusa alimentar do seu filho, com
+            formulário prévio, devolutiva online de 1h a 1h30 e orientação
+            inicial para entender por onde começar.
+          </p>
+        </div>
+        <div class="oferta-card reveal">
+          <ul class="oferta-includes">
+            <li class="oferta-include">
+              <div class="oferta-include-icon">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path
+                    d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
+                  />
+                </svg>
+              </div>
+              <div>
+                <div class="oferta-include-title">
+                  Formulário detalhado sobre a recusa alimentar
+                </div>
+                <p class="oferta-include-text">
+                  Você preenche antes do atendimento para que eu entenda o
+                  histórico, os comportamentos, os alimentos aceitos, as recusas
+                  e as reações do seu filho na hora de comer.
+                </p>
+              </div>
+            </li>
+            <li class="oferta-include">
+              <div class="oferta-include-icon">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </div>
+              <div>
+                <div class="oferta-include-title">
+                  Análise individual dos perfis de recusa
+                </div>
+                <p class="oferta-include-text">
+                  Eu avalio as respostas do formulário e identifico quais perfis
+                  estão mais presentes no caso do seu filho, considerando que
+                  uma mesma criança pode apresentar mais de um padrão ao mesmo
+                  tempo.
+                </p>
+              </div>
+            </li>
+            <li class="oferta-include">
+              <div class="oferta-include-icon">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                </svg>
+              </div>
+              <div>
+                <div class="oferta-include-title">
+                  Atendimento online individual de 1h a 1h30
+                </div>
+                <p class="oferta-include-text">
+                  Na videochamada, eu faço a devolutiva da análise, explico o
+                  que pode estar por trás das recusas e mostro um caminho
+                  inicial de condução para a realidade da sua família.
+                </p>
+              </div>
+            </li>
+            <li class="oferta-include">
+              <div class="oferta-include-icon">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+                  />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                </svg>
+              </div>
+              <div>
+                <div class="oferta-include-title">
+                  Documento com a avaliação dos padrões
+                </div>
+                <p class="oferta-include-text">
+                  Você recebe um registro com os principais pontos avaliados no
+                  formulário, os padrões identificados e os direcionamentos
+                  iniciais conversados no atendimento.
+                </p>
+              </div>
+            </li>
+          </ul>
+          <div class="oferta-price-block">
+            <div class="oferta-price-label">Investimento especial</div>
+            <div class="oferta-price-before">
+              De <span>R$ 397</span> por
+              <strong class="oferta-discount-badge">Economize R$ 50</strong>
+            </div>
+            <div class="oferta-price"><sup>R$</sup>347</div>
+            <div class="oferta-price-note">
+              à vista via Pix ou parcelado no cartão
+            </div>
+            <div class="oferta-price-parcel">
+              em até 12x de <strong>R$ 35,89</strong>
+            </div>
+          </div>
+          <a href="https://pay.kiwify.com.br/BcJB9n6" class="oferta-btn"
+            >Quero entender o padrão do meu filho
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" /></svg
+          ></a>
+          <div class="oferta-footer-note">
+            <span>✓</span> Pagamento seguro &nbsp;·&nbsp;
+            <span>✓</span> Atendimento online
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="container">
+        <div class="faq-header reveal">
+          <span class="label">Dúvidas</span>
+          <h2 class="faq-title">Perguntas <em>frequentes</em></h2>
+        </div>
+        <div class="faq-list reveal">
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Como funciona após a compra?
+              <div class="faq-icon">
+                <svg
+                  width="11"
+                  height="11"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </div>
+            </button>
+            <div class="faq-a">
+              Após a compra você acessará a plataforma Kiwify com seu login e
+              senha (a conta pode ser criada gratuitamente se ainda não
+              possuir). Aparecerá o Produto "Método Padrão que Liberta" na sua
+              área de membros. Acesse e você terá as orientações iniciais e o
+              direcionamento para responder o formulário. Entro em contato pelo
+              whatsapp informado no formulário em até 5 dias úteis para
+              agendarmos o atendimento individual online. Neste atendimento
+              online você receberá todo o retorno da análise do formulário, as
+              orientações em como lidar com este cenário e os próximos passos.
+              Também receberá um documento com o que foi avaliado do formulário
+              dos padrões de recusa.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              O que acontece depois do atendimento?
+              <div class="faq-icon">
+                <svg
+                  width="11"
+                  height="11"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </div>
+            </button>
+            <div class="faq-a">
+              Você sai com clareza sobre os perfis do seu filho e um plano de
+              condução possível. Se necessário, é possível dar continuidade com
+              pacotes de acompanhamento, avaliados caso a caso no próprio
+              atendimento.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Para qual faixa etária é esse atendimento?
+              <div class="faq-icon">
+                <svg
+                  width="11"
+                  height="11"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </div>
+            </button>
+            <div class="faq-a">
+              Para crianças de 1 ano e 6 meses a 12 anos. Se o seu filho tem
+              menos de 1 ano e 6 meses, provavelmente ainda está na fase de
+              introdução alimentar, onde algumas recusas são completamente
+              esperadas.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Funciona para crianças com TEA, TDAH ou outra neurodivergência?
+              <div class="faq-icon">
+                <svg
+                  width="11"
+                  height="11"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </div>
+            </button>
+            <div class="faq-a">
+              Sim. A seletividade alimentar é muito comum em crianças
+              neurodivergentes e o Método Padrão que Liberta é igualmente
+              aplicável. A base são os 6 perfis de recusa sensorial, que
+              independem do diagnóstico. O processo pode ser mais intenso nesses
+              casos, mas o caminho existe.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-inner">
+          <a href="#" class="footer-logo">Dafni <span>Paiva</span></a>
+          <div class="footer-social">
+            <a
+              href="https://instagram.com/nutridafnipaiva"
+              target="_blank"
+              rel="noopener"
+              class="footer-social-link"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle
+                  cx="17.5"
+                  cy="6.5"
+                  r="1"
+                  fill="currentColor"
+                  stroke="none"
+                />
+              </svg>
+              @nutridafnipaiva
+            </a>
+            <a
+              href="https://tiktok.com/@nutridafnipaiva"
+              target="_blank"
+              rel="noopener"
+              class="footer-social-link"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+              </svg>
+              @nutridafnipaiva
+            </a>
+          </div>
+        </div>
+        <p class="footer-copy" id="footer-copy"></p>
+      </div>
+    </footer>
+
+    <script>
+      const nav = document.getElementById("nav");
+      window.addEventListener(
+        "scroll",
+        () => {
+          nav.classList.toggle("stuck", window.scrollY > 10);
+        },
+        { passive: true }
+      );
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("up");
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+      );
+      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+      document.querySelectorAll(".faq-q").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const isOpen = btn.getAttribute("aria-expanded") === "true";
+          document.querySelectorAll(".faq-q").forEach((b) => {
+            b.setAttribute("aria-expanded", "false");
+            b.nextElementSibling.classList.remove("open");
+          });
+          if (!isOpen) {
+            btn.setAttribute("aria-expanded", "true");
+            btn.nextElementSibling.classList.add("open");
+          }
+        });
+      });
+      document.getElementById("footer-copy").textContent =
+        "© " +
+        new Date().getFullYear() +
+        " Dafni Paiva · Nutricionista CRN3: 20.860 · Especialista em Seletividade Alimentar";
+    </script>
+  </body>
+</html>
