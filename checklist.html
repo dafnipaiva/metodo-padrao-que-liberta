@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklist — Dafni Paiva</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF8F4;
+    --surface: #FFFFFF;
+    --surface2: #F3F0EA;
+    --text: #1C1A17;
+    --text-muted: #7A7570;
+    --text-light: #B0ADA8;
+    --accent: #2E6B50;
+    --accent-light: #E8F2ED;
+    --accent-mid: #5A9E7C;
+    --border: #E5E1D8;
+    --border-light: #EFECE6;
+    --warning: #8B5E1A;
+    --warning-bg: #FEF6E8;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    gap: 16px;
+  }
+
+  .header-left h1 {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: -0.3px;
+  }
+
+  .header-left p {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .progress-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-light);
+    border-radius: 20px;
+    padding: 6px 14px;
+  }
+
+  .progress-pill .num {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .progress-pill .lbl {
+    font-size: 12px;
+    color: var(--accent-mid);
+  }
+
+  .copy-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .copy-btn:hover { background: #245540; }
+  .copy-btn:active { transform: scale(0.97); }
+  .copy-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  .view-only-bar {
+    background: var(--warning-bg);
+    border-bottom: 1px solid #F0D9B0;
+    padding: 10px 24px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--warning);
+  }
+
+  main {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    text-align: center;
+  }
+
+  .stat-card .val {
+    font-family: var(--serif);
+    font-size: 28px;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .stat-card .lbl {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .current-phase-box {
+    background: var(--accent-light);
+    border: 1px solid #C5DDD1;
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .phase-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  .current-phase-box .label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-mid);
+    margin-bottom: 2px;
+  }
+
+  .current-phase-box .title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  .current-phase-box .desc {
+    font-size: 13px;
+    color: var(--accent-mid);
+    margin-top: 2px;
+  }
+
+  .phases-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .phase-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+
+  .phase-card.is-current { border-color: #C5DDD1; }
+  .phase-card.is-done { border-color: var(--border-light); }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--surface);
+    transition: background 0.1s;
+  }
+
+  .phase-header:hover { background: var(--surface2); }
+
+  .phase-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+    background: var(--surface2);
+    color: var(--text-muted);
+  }
+
+  .phase-card.is-current .phase-num { background: var(--accent); color: #fff; }
+  .phase-card.is-done .phase-num { background: var(--accent-light); color: var(--accent); }
+
+  .phase-title-wrap { flex: 1; min-width: 0; }
+
+  .phase-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .phase-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .prog-bar-sm {
+    flex: 1;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    max-width: 120px;
+  }
+
+  .prog-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  .prog-count {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .phase-badge {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .badge-current { background: var(--accent-light); color: var(--accent); }
+  .badge-done { background: #EDFAF4; color: #1E7A50; }
+  .badge-pending { background: var(--surface2); color: var(--text-light); }
+
+  .chevron {
+    color: var(--text-light);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .phase-card.open .chevron { transform: rotate(180deg); }
+
+  .phase-body {
+    border-top: 1px solid var(--border-light);
+    padding: 4px 20px 16px;
+    display: none;
+  }
+
+  .phase-card.open .phase-body { display: block; }
+
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .item:last-child { border-bottom: none; }
+
+  .cb {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    transition: all 0.15s;
+  }
+
+  .cb:hover { border-color: var(--accent-mid); }
+  .cb.checked { background: var(--accent); border-color: var(--accent); }
+
+  .cb.checked::after {
+    content: '';
+    width: 4px;
+    height: 8px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg) translate(-0.5px, -1px);
+    display: block;
+  }
+
+  .item-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .item-text {
+    flex: 1;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+    cursor: pointer;
+    transition: color 0.1s;
+  }
+
+  .item-text.checked {
+    color: var(--text-light);
+    text-decoration: line-through;
+  }
+
+  .drive-link {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.15s;
+    margin-top: 0;
+  }
+
+  .drive-link:hover {
+    background: var(--accent-light);
+    border-color: #C5DDD1;
+    color: var(--accent);
+  }
+
+  .drive-link svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .view-only .cb { pointer-events: none; cursor: default; }
+  .view-only .item-text { cursor: default; }
+
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  .legend svg { width: 13px; height: 13px; color: var(--accent-mid); flex-shrink: 0; }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.25s;
+    pointer-events: none;
+    z-index: 200;
+    white-space: nowrap;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 520px) {
+    .stats-row { gap: 8px; }
+    .stat-card { padding: 12px; }
+    .stat-card .val { font-size: 22px; }
+    .copy-btn span { display: none; }
+    .header-left p { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-left">
+      <h1>Checklist Estratégico</h1>
+      <p>Dafni Paiva — Padrão que Liberta</p>
+    </div>
+    <div class="header-right">
+      <div class="progress-pill">
+        <span class="num" id="h-pct">0%</span>
+        <span class="lbl">concluído</span>
+      </div>
+      <button class="copy-btn" id="copy-btn" onclick="copiarResumo()" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span>Copiar resumo para o Claude</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="view-only-bar" id="view-only-bar" style="display:none">
+  Você está visualizando o progresso da Dafni. Os itens não podem ser editados neste acesso.
+</div>
+
+<main>
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="val" id="s-done">0</div>
+      <div class="lbl">concluídos</div>
+    </div>
+    <div class="stat-card">
+      <div class="val" id="s-total">0</div>
+      <div class="lbl">no total</div>
+    </div>
+    <div class="stat-card">
+      <div class="val" id="s-fase">—</div>
+      <div class="lbl">fase atual</div>
+    </div>
+  </div>
+
+  <div class="current-phase-box" id="current-box">
+    <div class="phase-dot"></div>
+    <div>
+      <div class="label">Foco agora</div>
+      <div class="title" id="cur-title">—</div>
+      <div class="desc" id="cur-desc">—</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    Itens com o ícone de link têm um documento de evidência no Drive vinculado.
+  </div>
+
+  <div class="phases-list" id="phases"></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/*
+  ─────────────────────────────────────────────
+  COMO ADICIONAR LINKS DO DRIVE:
+
+  Cada item pode ter um campo "link" opcional.
+  Basta colar a URL do Google Drive no campo:
+
+  { text: "Nome do item", link: "https://drive.google.com/..." }
+
+  Itens sem link: { text: "Nome do item" }
+  ─────────────────────────────────────────────
+*/
+
+const PHASES = [
+  {
+    id: 1,
+    title: "Fase 1 — Prioridade e organização",
+    desc: "Parar de tentar fazer tudo e começar pelo que gera movimento real",
+    items: [
+      { text: "Assistir a aula de Planejamento" },
+      { text: "Organizar rotina mínima semanal (planejamento, atendimento, captação, conteúdo)" },
+      { text: "Definir bloco fixo semanal de revisão do que foi feito, o que gerou resposta e o que precisa ajustar" },
+      { text: "Parar de montar esteira completa antes de validar a metodologia" },
+      { text: "Assumir consulta individual como produto principal neste momento" },
+      { text: "Definir por escrito o que é prioridade agora e o que fica para depois" }
+    ]
+  },
+  {
+    id: 2,
+    title: "Fase 2 — Metodologia autoral e oferta principal",
+    desc: "Organizar o próprio método com clareza suficiente para vender e validar",
+    items: [
+      { text: "Nomear a metodologia (Padrão que Liberta, Alimentação)" },
+      { text: "Definir os 5 pilares: investigação, perfil sensorial, plano de condução, acompanhamento, orientação contínua" },
+      { text: "Escrever explicação simples da metodologia em linguagem de mãe" },
+      { text: "Definir a frase central: o padrão de recusa é o que trava. Entender é o que libera." },
+      { text: "Organizar a consulta como: leitura do caso, identificação do padrão, interpretação sensorial, direção prática" },
+      { text: "Parar de apresentar a consulta como atendimento genérico e passar a apresentar como leitura aprofundada" },
+      { text: "Definir por escrito o que resolve e o que não resolve sozinha" }
+    ]
+  },
+  {
+    id: 3,
+    title: "Fase 3 — Captação com intenção",
+    desc: "Isca de perfis sensoriais e grupo gratuito como caminho de entrada",
+    items: [
+      { text: "Assistir a aula de Grupos de Captação" },
+      { text: "Definir a função do grupo: captação, aquecimento, explicação, direcionamento para consulta" },
+      { text: "Decidir formato do grupo: gratuito, ao vivo, tema claro, liderança da Dafni" },
+      { text: "Definir tema central do grupo (alimentação, sensorialidade, padrões de recusa)" },
+      { text: "Definir a promessa do grupo em linguagem simples" },
+      { text: "Estruturar a isca ou teste ligado a perfis de recusa" },
+      { text: "Decidir a porta de entrada principal (teste, material, pdf ou combinação)" },
+      { text: "Organizar o caminho: conteúdo, isca, grupo, consulta" },
+      { text: "Validar de forma orgânica antes de ampliar" },
+      { text: "Deixar tráfego pago como etapa de teste posterior" }
+    ]
+  },
+  {
+    id: 4,
+    title: "Fase 4 — Comunicação e posicionamento do perfil",
+    desc: "Instagram comunicando com clareza o que diferencia a Dafni",
+    items: [
+      { text: "Ajustar a bio com assinatura estratégica" },
+      { text: "Sustentar a frase de apresentação como base do posicionamento" },
+      { text: "Organizar 3 posts fixados: apresentação, serviço e metodologia ou perfil sensorial" },
+      { text: "Criar post de apresentação (quem é, por que fala do tema, o que enxerga diferente, vivência pessoal)" },
+      { text: "Criar post de serviço (para quem é, o que investiga, o que a mãe entende depois)" },
+      { text: "Criar post fixado sobre perfis de recusa" },
+      { text: "Ajustar destaques: quem sou, consulta, seletividade, perfis de recusa, grupo, resultados" }
+    ]
+  },
+  {
+    id: 5,
+    title: "Fase 5 — Conteúdo a favor da metodologia",
+    desc: "Conteúdo trabalhando para captação e venda sem virar peso",
+    items: [
+      { text: "Manter 3 linhas de conteúdo: autoridade, conexão, posicionamento" },
+      { text: "Repetir estrategicamente os pontos de diferenciação da Dafni" },
+      { text: "Criar banco de repertório (falas reais, dúvidas, objeções, sinais de recusa)" },
+      { text: "Produzir conteúdo nos temas mais fortes: perfil sensorial, fase x seletividade, neurodivergência e alimentação" },
+      { text: "Usar a própria história nos conteúdos de conexão sem exagero emocional" },
+      { text: "Tratar conteúdo como reforço da esteira, não como produção sem fim" }
+    ]
+  },
+  {
+    id: 6,
+    title: "Fase 6 — Validação e coleta de prova",
+    desc: "Transformar atendimento em validação estratégica da metodologia",
+    items: [
+      { text: "Registrar padrões frequentes nos atendimentos" },
+      { text: "Anotar como as mães chegam (confusas, culpadas, sem nomear o problema)" },
+      { text: "Anotar o que muda depois da condução (o que ficou mais claro, o que a mãe entendeu)" },
+      { text: "Guardar depoimentos e falas reais que comprovam a metodologia" },
+      { text: "Refinar o nome da metodologia a partir do uso real" },
+      { text: "Refinar a linguagem dos pilares conforme os casos avançam" },
+      { text: "Identificar quais termos a mãe entende melhor e quais precisam de tradução" }
+    ]
+  },
+  {
+    id: 7,
+    title: "Fase 7 — Expansão futura com responsabilidade",
+    desc: "Reconhecer o potencial de expansão sem atropelar a ordem certa",
+    items: [
+      { text: "Fazer reunião de realinhamento no momento certo" },
+      { text: "Observar se interesse de profissionais aparece com consistência" },
+      { text: "Deixar formação para profissionais como projeto de médio prazo" },
+      { text: "Só avançar para expansão com: metodologia validada, linguagem refinada, casos e depoimentos" },
+      { text: "Não abrir mentoria para profissionais agora" },
+      { text: "Não criar vários produtos menores antes da hora" },
+      { text: "Manter foco atual: consulta, metodologia, grupo e validação" }
+    ]
+  }
+];
+
+const KEY = 'dafni_checklist_v3';
+const isAdmin = new URLSearchParams(window.location.search).get('admin') === 'sim';
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) {}
+
+function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {} }
+
+function phaseProgress(ph) {
+  let done = 0;
+  ph.items.forEach((_, i) => { if (state[ph.id + '-' + i]) done++; });
+  return { done, total: ph.items.length };
+}
+
+function currentPhase() {
+  for (let ph of PHASES) {
+    const { done, total } = phaseProgress(ph);
+    if (done < total) return ph;
+  }
+  return null;
+}
+
+function updateStats() {
+  let allDone = 0, allTotal = 0;
+  PHASES.forEach(ph => {
+    const p = phaseProgress(ph);
+    allDone += p.done;
+    allTotal += p.total;
+  });
+  document.getElementById('s-done').textContent = allDone;
+  document.getElementById('s-total').textContent = allTotal;
+  document.getElementById('h-pct').textContent = allTotal ? Math.round(allDone / allTotal * 100) + '%' : '0%';
+
+  const cur = currentPhase();
+  if (cur) {
+    document.getElementById('s-fase').textContent = cur.id;
+    document.getElementById('cur-title').textContent = cur.title;
+    document.getElementById('cur-desc').textContent = cur.desc;
+  } else {
+    document.getElementById('s-fase').textContent = '✓';
+    document.getElementById('cur-title').textContent = 'Todas as fases concluídas';
+    document.getElementById('cur-desc').textContent = 'Hora de revisar e planejar a expansão.';
+  }
+}
+
+function updatePhaseUI(ph, card) {
+  const { done, total } = phaseProgress(ph);
+  const pct = Math.round(done / total * 100);
+  const cur = currentPhase();
+  const isCurrent = cur && cur.id === ph.id;
+  const isDone = done === total;
+
+  const fill = card.querySelector('.prog-bar-fill');
+  if (fill) fill.style.width = pct + '%';
+
+  const count = card.querySelector('.prog-count');
+  if (count) count.textContent = done + ' de ' + total;
+
+  const badge = card.querySelector('.phase-badge');
+  if (badge) {
+    badge.className = 'phase-badge ' + (isDone ? 'badge-done' : isCurrent ? 'badge-current' : 'badge-pending');
+    badge.textContent = isDone ? 'concluída' : isCurrent ? 'fase atual' : 'pendente';
+  }
+
+  card.classList.toggle('is-current', !!isCurrent);
+  card.classList.toggle('is-done', isDone);
+
+  const num = card.querySelector('.phase-num');
+  if (num) {
+    num.style.background = isDone ? 'var(--accent-light)' : isCurrent ? 'var(--accent)' : 'var(--surface2)';
+    num.style.color = isDone ? 'var(--accent)' : isCurrent ? '#fff' : 'var(--text-muted)';
+  }
+}
+
+function render() {
+  const container = document.getElementById('phases');
+  container.innerHTML = '';
+  const cur = currentPhase();
+
+  PHASES.forEach(ph => {
+    const { done, total } = phaseProgress(ph);
+    const pct = Math.round(done / total * 100);
+    const isCurrent = cur && cur.id === ph.id;
+    const isDone = done === total;
+
+    const card = document.createElement('div');
+    card.className = 'phase-card'
+      + (isCurrent ? ' is-current' : '')
+      + (isDone ? ' is-done' : '')
+      + (isCurrent ? ' open' : '');
+    if (!isAdmin) card.classList.add('view-only');
+
+    const badgeClass = isDone ? 'badge-done' : isCurrent ? 'badge-current' : 'badge-pending';
+    const badgeText = isDone ? 'concluída' : isCurrent ? 'fase atual' : 'pendente';
+
+    card.innerHTML = `
+      <div class="phase-header">
+        <div class="phase-num">${ph.id}</div>
+        <div class="phase-title-wrap">
+          <div class="phase-name">${ph.title}</div>
+          <div class="phase-meta">
+            <div class="prog-bar-sm"><div class="prog-bar-fill" style="width:${pct}%"></div></div>
+            <span class="prog-count">${done} de ${total}</span>
+          </div>
+        </div>
+        <span class="phase-badge ${badgeClass}">${badgeText}</span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="phase-body" id="body-${ph.id}"></div>
+    `;
+
+    card.querySelector('.phase-header').addEventListener('click', () => {
+      card.classList.toggle('open');
+    });
+
+    container.appendChild(card);
+
+    const body = document.getElementById('body-' + ph.id);
+
+    ph.items.forEach((item, i) => {
+      const key = ph.id + '-' + i;
+      const checked = !!state[key];
+      const text = typeof item === 'string' ? item : item.text;
+      const link = typeof item === 'object' && item.link ? item.link : null;
+
+      const row = document.createElement('div');
+      row.className = 'item';
+
+      const linkHTML = link
+        ? `<a class="drive-link" href="${link}" target="_blank" rel="noopener" title="Ver documento no Drive">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+           </a>`
+        : '';
+
+      row.innerHTML = `
+        <div class="cb${checked ? ' checked' : ''}" id="cb-${key}"></div>
+        <div class="item-content">
+          <div class="item-text${checked ? ' checked' : ''}" id="it-${key}">${text}</div>
+          ${linkHTML}
+        </div>
+      `;
+
+      if (isAdmin) {
+        const toggle = () => {
+          state[key] = !state[key];
+          save();
+          document.getElementById('cb-' + key).className = 'cb' + (state[key] ? ' checked' : '');
+          document.getElementById('it-' + key).className = 'item-text' + (state[key] ? ' checked' : '');
+          updatePhaseUI(ph, card);
+          updateStats();
+        };
+        row.querySelector('.cb').addEventListener('click', toggle);
+        row.querySelector('.item-text').addEventListener('click', toggle);
+      }
+
+      body.appendChild(row);
+    });
+  });
+
+  updateStats();
+}
+
+function copiarResumo() {
+  const cur = currentPhase();
+  let lines = [];
+  lines.push('=== STATUS DO CHECKLIST — DAFNI PAIVA ===');
+  lines.push('');
+
+  let allDone = 0, allTotal = 0;
+  PHASES.forEach(ph => {
+    const { done, total } = phaseProgress(ph);
+    allDone += done; allTotal += total;
+  });
+
+  lines.push(`Progresso geral: ${allDone} de ${allTotal} itens (${Math.round(allDone / allTotal * 100)}%)`);
+  lines.push(`Fase atual: ${cur ? cur.id + ' — ' + cur.title : 'Todas concluídas'}`);
+  lines.push('');
+
+  PHASES.forEach(ph => {
+    const { done, total } = phaseProgress(ph);
+    const isCurrent = cur && cur.id === ph.id;
+    lines.push(`${ph.title} [${done}/${total}]${isCurrent ? ' ← FASE ATUAL' : done === total ? ' ✓' : ''}`);
+    if (isCurrent || done < total) {
+      ph.items.forEach((item, i) => {
+        const key = ph.id + '-' + i;
+        const text = typeof item === 'string' ? item : item.text;
+        if (!state[key]) lines.push(`  [ ] ${text}`);
+      });
+    }
+    lines.push('');
+  });
+
+  lines.push('Cole este bloco numa conversa nova do projeto para o assessor saber exatamente onde você está.');
+
+  const texto = lines.join('\n');
+  navigator.clipboard.writeText(texto).then(() => {
+    showToast('Resumo copiado. Cole na conversa do Claude.');
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = texto;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Resumo copiado. Cole na conversa do Claude.');
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+if (!isAdmin) {
+  document.getElementById('view-only-bar').style.display = 'block';
+} else {
+  document.getElementById('copy-btn').style.display = 'flex';
+}
+
+render();
+</script>
+</body>
+</html>
