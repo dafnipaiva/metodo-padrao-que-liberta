@@ -626,8 +626,20 @@ const PHASES = [
 
 const KEY = 'dafni_checklist_v3';
 const isAdmin = new URLSearchParams(window.location.search).get('admin') === 'sim';
+
+const INITIAL_STATE = {
+  "1-0":true,"1-1":true,"1-2":true,"1-3":true,"1-4":true,"1-5":true,
+  "2-0":true,"2-1":true,"2-2":true,"2-3":true,"2-4":true,"2-5":true,"2-6":true,
+  "3-0":true,"3-1":true,"3-2":true,"3-3":true,"3-5":true,"3-6":true,"3-7":true,
+  "4-0":true,"4-1":true,"4-2":true,"4-3":true,"4-4":true,"4-5":true
+};
+
 let state = {};
-try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) {}
+try {
+  const saved = localStorage.getItem(KEY);
+  state = saved ? JSON.parse(saved) : INITIAL_STATE;
+  if (!saved) localStorage.setItem(KEY, JSON.stringify(INITIAL_STATE));
+} catch(e) { state = INITIAL_STATE; }
 
 function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {} }
 
