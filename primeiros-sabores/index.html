@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Método Padrão que Liberta — Dafni Paiva</title>
+    <title>Primeiros Sabores — Dafni Paiva</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
@@ -504,99 +504,73 @@
         padding: 5px 12px;
         border-radius: 20px;
       }
-      /* PERFIS */
-      .perfis {
+
+      /* DIFERENCIAIS */
+      .diferenciais {
         padding: 104px 0;
       }
-      .perfis-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        margin-bottom: 48px;
-        flex-wrap: wrap;
-        gap: 20px;
+      .diferenciais-header {
+        max-width: 580px;
+        margin-bottom: 64px;
       }
-      .perfis-title {
+      .diferenciais-title {
         font-family: var(--f-display);
-        font-size: clamp(26px, 3.5vw, 44px);
+        font-size: clamp(28px, 3.8vw, 48px);
         font-weight: 400;
         line-height: 1.15;
-        margin-top: 12px;
+        margin-top: 14px;
       }
-      .perfis-title em {
+      .diferenciais-title em {
         font-style: italic;
         color: var(--slate);
       }
-      .perfis-note {
-        font-size: 14px;
-        font-weight: 300;
-        color: var(--muted);
-        max-width: 240px;
-        text-align: right;
-        line-height: 1.6;
-      }
-      .perfis-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
-      }
-      .perfil {
-        background: var(--white);
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 28px 24px;
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.3s var(--ease), box-shadow 0.3s,
-          border-color 0.3s;
-      }
-      .perfil::after {
-        content: attr(data-num);
-        position: absolute;
-        top: -14px;
-        right: 16px;
-        font-family: var(--f-display);
-        font-size: 88px;
-        font-weight: 400;
-        color: var(--cream2);
-        line-height: 1;
-        pointer-events: none;
-      }
-      .perfil:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 40px rgba(110, 110, 143, 0.12);
-        border-color: rgba(110, 110, 143, 0.28);
-      }
-      .perfil-badge {
-        display: inline-block;
-        margin-bottom: 14px;
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--slate);
-        background: var(--slate-light);
-        padding: 3px 10px;
-        border-radius: 20px;
-      }
-      .perfil-name {
-        font-family: var(--f-display);
-        font-size: 21px;
-        font-weight: 500;
-        color: var(--ink);
-        margin-bottom: 5px;
-      }
-      .perfil-sub {
-        font-size: 13px;
-        color: var(--muted);
-        font-style: italic;
-        margin-bottom: 12px;
-      }
-      .perfil-desc {
-        font-size: 13px;
+      .diferenciais-subtitle {
+        margin-top: 14px;
+        font-size: 16px;
         font-weight: 300;
         color: var(--ink2);
-        line-height: 1.7;
+        line-height: 1.75;
+      }
+      .diferenciais-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      .diferencial-card {
+        background: var(--white);
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        padding: 36px 28px;
+        transition: transform 0.3s var(--ease), box-shadow 0.3s;
+      }
+      .diferencial-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(110, 110, 143, 0.12);
+      }
+      .diferencial-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: var(--slate-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--slate);
+        margin-bottom: 16px;
+        font-size: 22px;
+      }
+      .diferencial-title {
+        font-family: var(--f-display);
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+      .diferencial-text {
+        font-size: 14px;
+        font-weight: 300;
+        color: var(--ink2);
+        line-height: 1.75;
       }
 
       /* PARA QUEM */
@@ -665,13 +639,13 @@
         object-fit: cover;
         object-position: top;
         border-radius: 12px;
-        filter: grayscale(15%) brightness(0.93);
+        filter: grayscale(0%) brightness(1);
       }
       .paraquem-img-overlay {
         position: absolute;
         inset: 0;
         border-radius: 12px;
-        background: linear-gradient(to top, var(--ink) 0%, transparent 40%);
+        background: linear-gradient(to top, var(--ink) 0%, transparent 85%);
       }
       .paraquem-img-card {
         position: absolute;
@@ -769,33 +743,6 @@
         font-weight: 500;
         color: var(--ink);
       }
-      .sobre-blockquote {
-        margin-top: 32px;
-        padding: 24px 28px;
-        background: var(--white);
-        border-radius: 12px;
-        border: 1px solid var(--line);
-        position: relative;
-      }
-      .sobre-blockquote::before {
-        content: '"';
-        position: absolute;
-        top: 8px;
-        left: 20px;
-        font-family: var(--f-display);
-        font-size: 60px;
-        color: var(--slate);
-        opacity: 0.13;
-        line-height: 1;
-      }
-      .sobre-blockquote-text {
-        font-family: var(--f-display);
-        font-size: 18px;
-        font-style: italic;
-        color: var(--ink);
-        line-height: 1.55;
-        padding-top: 6px;
-      }
 
       /* OFERTA */
       .oferta {
@@ -847,16 +794,23 @@
         color: var(--ink2);
         line-height: 1.75;
       }
-      .oferta-card {
-        max-width: 680px;
+      .oferta-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        max-width: 1000px;
         margin: 0 auto;
+      }
+      .oferta-card {
         background: var(--white);
         border: 1px solid var(--line);
         border-radius: 24px;
-        padding: 52px;
+        padding: 40px 28px;
         box-shadow: 0 24px 80px rgba(28, 27, 34, 0.08);
         position: relative;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
       }
       .oferta-card::before {
         content: "";
@@ -867,44 +821,60 @@
         height: 4px;
         background: linear-gradient(to right, var(--slate), var(--gold));
       }
+      .oferta-card.featured {
+        transform: scale(1.05);
+        border-color: var(--slate);
+        box-shadow: 0 32px 96px rgba(110, 110, 143, 0.16);
+      }
+      .oferta-badge {
+        display: none;
+      }
+      .oferta-card-title {
+        font-family: var(--f-display);
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 12px;
+        line-height: 1.3;
+        color: var(--ink);
+      }
+      .oferta-card-subtitle {
+        font-size: 15px;
+        color: var(--ink2);
+        margin-bottom: 28px;
+        font-weight: 400;
+        line-height: 1.6;
+      }
       .oferta-includes {
         list-style: none;
-        margin-bottom: 40px;
+        margin-bottom: 36px;
+        flex-grow: 1;
       }
       .oferta-include {
         display: flex;
         align-items: flex-start;
-        gap: 14px;
-        padding: 18px 0;
-        border-bottom: 1px solid var(--line2);
+        gap: 12px;
+        padding: 14px 0;
+        font-size: 14px;
+        font-weight: 300;
+        color: var(--ink2);
+        line-height: 1.65;
       }
-      .oferta-include:first-child {
-        padding-top: 0;
-      }
-      .oferta-include:last-child {
-        border-bottom: none;
+      .oferta-include::before {
+        content: "✓";
+        color: var(--slate);
+        font-weight: 600;
+        flex-shrink: 0;
+        margin-top: 1px;
+        font-size: 16px;
       }
       .oferta-include-icon {
-        width: 30px;
-        height: 30px;
-        border-radius: 8px;
-        background: var(--slate-light);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--slate);
-        flex-shrink: 0;
+        display: none;
       }
       .oferta-include-title {
-        font-size: 14px;
-        font-weight: 500;
-        margin-bottom: 3px;
+        display: none;
       }
       .oferta-include-text {
-        font-size: 13px;
-        font-weight: 300;
-        color: var(--muted);
-        line-height: 1.6;
+        display: none;
       }
       .oferta-price-block {
         text-align: center;
@@ -972,66 +942,6 @@
       }
       .oferta-footer-note span {
         color: var(--slate);
-      }
-      .oferta-price-before {
-        font-size: 13px;
-        font-weight: 300;
-        color: var(--muted);
-        margin-bottom: 8px;
-      }
-      .oferta-price-before span {
-        position: relative;
-        color: var(--muted);
-        margin: 0 4px;
-      }
-      .oferta-price-before span::after {
-        content: "";
-        position: absolute;
-        left: -2px;
-        right: -2px;
-        top: 52%;
-        height: 1px;
-        background: var(--slate);
-        opacity: 0.65;
-      }
-      .oferta-price-before {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        font-size: 13px;
-        font-weight: 300;
-        color: var(--muted);
-        margin-bottom: 8px;
-        flex-wrap: wrap;
-      }
-      .oferta-price-before span {
-        position: relative;
-        color: var(--muted);
-        margin: 0 2px;
-      }
-      .oferta-price-before span::after {
-        content: "";
-        position: absolute;
-        left: -2px;
-        right: -2px;
-        top: 52%;
-        height: 1px;
-        background: var(--slate);
-        opacity: 0.65;
-      }
-      .oferta-discount-badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 10px;
-        font-weight: 500;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--slate);
-        background: var(--slate-light);
-        padding: 4px 9px;
-        border-radius: 999px;
       }
 
       /* FAQ */
@@ -1157,24 +1067,55 @@
         margin-top: 24px;
       }
 
-      @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(22px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      /* WHATSAPP BUTTON */
+      .whatsapp-button {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: #25d366;
+        color: var(--white);
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+        transition: transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+        text-decoration: none;
       }
-      @keyframes heroScale {
-        from {
-          opacity: 0;
-          transform: scale(1.05);
+      .whatsapp-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+      }
+      .whatsapp-button svg {
+        width: 28px;
+        height: 28px;
+      }
+      .whatsapp-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #25d366;
+        font-size: 13px;
+        font-weight: 500;
+        transition: gap 0.2s;
+      }
+      .whatsapp-link:hover {
+        gap: 12px;
+      }
+      @media (max-width: 600px) {
+        .whatsapp-button {
+          width: 48px;
+          height: 48px;
+          bottom: 20px;
+          right: 20px;
         }
-        to {
-          opacity: 1;
-          transform: scale(1);
+        .whatsapp-button svg {
+          width: 24px;
+          height: 24px;
         }
       }
 
@@ -1227,18 +1168,21 @@
           grid-template-columns: 1fr;
           gap: 40px;
         }
-        .metodo-steps {
+        .metodo-steps,
+        .diferenciais-grid {
           grid-template-columns: 1fr;
           gap: 14px;
         }
-        .perfis-grid {
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
+        .oferta-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        .oferta-card.featured {
+          transform: scale(1);
         }
         .paraquem-img-col {
           display: none;
         }
-        /* Imagem da seção sobre centralizada no mobile */
         .sobre-img-col {
           max-width: 300px;
           margin: 0 auto;
@@ -1252,20 +1196,16 @@
         .trust-sep {
           display: none;
         }
-        .perfis-note {
-          text-align: left;
-          max-width: 100%;
-        }
       }
       @media (max-width: 600px) {
         .container {
           padding: 0 20px;
         }
-        .perfis-grid {
-          grid-template-columns: 1fr;
-        }
         .nav-inner {
           padding: 0 20px;
+        }
+        .diferenciais-grid {
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -1298,20 +1238,17 @@
       <div class="hero-left">
         <div class="hero-eyebrow">
           <div class="hero-line"></div>
-          <span class="label">Método Padrão que Liberta</span>
+          <span class="label">Primeiros Sabores</span>
         </div>
         <h1 class="hero-h1">
-          A recusa do seu filho<br />tem um <em>padrão.</em><br />Entender é<br />o
-          que <em>liberta.</em>
+          Fazer certo desde<br />o início <em>previne</em><br />seletividade<br />depois.
         </h1>
         <p class="hero-sub">
-          Não é frescura. Não é fase. Não é falha sua. É um padrão sensorial e
-          comportamental que podem ser lidos, entendidos e conduzidos, com
-          método.
+          A introdução alimentar não é só oferecer alimentos. É ensinar seu filho a sentir, explorar e se relacionar com a comida. Com método.
         </p>
         <div class="hero-cta-wrap">
           <a href="#oferta" class="btn-main"
-            >Quero entender o padrão do meu filho
+            >Quero contratar Primeiros Sabores
             <svg
               width="15"
               height="15"
@@ -1336,8 +1273,8 @@
       </div>
       <div class="hero-right">
         <img
-          src="dafni.png"
-          alt="Dafni Paiva — Nutricionista especialista em seletividade alimentar"
+          src="../images/bebe-comida.png"
+          alt="Bebê explorando alimentos na introdução alimentar"
           class="hero-img"
         />
       </div>
@@ -1375,7 +1312,7 @@
             </svg>
           </div>
           <span class="trust-item-text"
-            >Análise individualizada dos perfis de recusa</span
+            >Treino prático da mãe em exploração sensorial</span
           >
         </div>
         <div class="trust-sep"></div>
@@ -1393,7 +1330,7 @@
             </svg>
           </div>
           <span class="trust-item-text"
-            >Funciona para TEA, TDAH e neurodivergência</span
+            >Prevenção de padrões de recusa desde o início</span
           >
         </div>
         <div class="trust-sep"></div>
@@ -1406,21 +1343,17 @@
           <div class="reveal">
             <span class="label">Você reconhece isso?</span>
             <h2 class="dor-title">
-              Você já tentou<br /><em>de tudo.</em><br />E nada mudou.
+              Você quer fazer<br />certo, mas não sabe<br /><em>por onde começa.</em>
             </h2>
             <p class="dor-body">
-              Insistência, disfarce no alimento, recompensa, exposição repetida
-              sem resultado. O problema não é a estratégia. É que ninguém ainda
-              leu o que está por trás da recusa do seu filho.
+              Tem tanta informação sobre introdução alimentar que fica difícil saber qual caminho seguir. BLW ou papinha? Com sal ou sem? E se ele recusar? Que utensílios usar? E se engasgar? Começo com fruta?
             </p>
             <p class="dor-body">
-              A recusa alimentar não é aleatória. Ela segue um padrão. E é esse
-              padrão que eu identifico.
+              Enquanto você fica nessa confusão, seu filho está formando sua relação com a comida. E essa relação é feita agora, nessa fase. O que ele aprender a sentir e explorar agora vai impactar como ele come daqui a anos.
             </p>
             <div class="dor-quote">
               <p class="dor-quote-text">
-                Não adianta oferecer mais vezes quando ninguém entendeu ainda o
-                que a criança está recusando de verdade.
+                A introdução alimentar não é só sobre o que oferecer. É sobre ensinar o seu filho a sentir, observar e se relacionar com alimentos.
               </p>
             </div>
           </div>
@@ -1429,36 +1362,31 @@
               <div class="dor-item">
                 <div class="dor-item-num">01</div>
                 <div class="dor-item-text">
-                  O macarrão só pode ser sem molho.
-                  <strong>De outra marca, ele não come.</strong>
+                  Você quer seguir BLW, mas tem medo <strong>de engasgo e falta de segurança</strong>.
                 </div>
               </div>
               <div class="dor-item">
                 <div class="dor-item-num">02</div>
                 <div class="dor-item-text">
-                  <strong>Só de ver o alimento no prato</strong>, já chora ou
-                  tenta sair do lugar.
+                  Recebe orientações conflitantes e <strong>não sabe em quem confiar</strong>.
                 </div>
               </div>
               <div class="dor-item">
                 <div class="dor-item-num">03</div>
                 <div class="dor-item-text">
-                  Na escola come. Em casa,
-                  <strong>recusa tudo que a família come.</strong>
+                  Seu filho recusa alimentos novos <strong>desde o início da introdução</strong>.
                 </div>
               </div>
               <div class="dor-item">
                 <div class="dor-item-num">04</div>
                 <div class="dor-item-text">
-                  <strong>Você para na frente da geladeira</strong> sem saber o
-                  que preparar.
+                  Você mesma tem seletividade alimentar <strong>e não sabe como oferecer alimentos que não come</strong>.
                 </div>
               </div>
               <div class="dor-item">
                 <div class="dor-item-num">05</div>
                 <div class="dor-item-text">
-                  Já ouviu "é frescura" e "vai passar" —
-                  <strong>mas você sente que não é isso.</strong>
+                  <strong>Ninguém te ensinou</strong> a observar os sinais de prontidão e sensibilidade do seu filho.
                 </div>
               </div>
             </div>
@@ -1472,122 +1400,76 @@
         <div class="metodo-header reveal">
           <span class="label">Como funciona</span>
           <h2 class="metodo-title">
-            O Método<br /><em>Padrão que Liberta</em>
+            Atendimento Individual<br /><em>Primeiros Sabores</em>
           </h2>
           <p class="metodo-subtitle">
-            Não é uma orientação genérica. É um processo para entender o padrão
-            de recusa do seu filho antes de definir por onde começar.
+            Atendimento online onde a gente conversa sobre o momento do seu filho, tira suas dúvidas de segurança e eu treino você na prática como observar sinais sensoriais e fazer exploração alimentar.
           </p>
         </div>
         <div class="metodo-steps">
           <div class="step-card reveal">
-            <div class="step-num">01</div>
-            <div class="step-title">Você me conta o cenário real</div>
+            <div class="step-title">Conversamos sobre prontidão</div>
             <p class="step-text">
-              Antes do atendimento, você responde um formulário detalhado sobre
-              a alimentação do seu filho, os alimentos aceitos, as recusas, as
-              reações na refeição e o que já foi tentado em casa.
+              A gente revisa os sinais de prontidão, conversa sobre qual abordagem faz mais sentido pro seu caso (BLW, colher, ou híbrido) e clareia as dúvidas de segurança que você tem.
             </p>
-            <span class="step-tag">Formulário inicial</span>
+            <span class="step-tag">Alinhamento estratégico</span>
           </div>
           <div class="step-card reveal reveal-delay-1">
-            <div class="step-num">02</div>
-            <div class="step-title">Eu leio os padrões por trás da recusa</div>
+            <div class="step-title">Eu treino você em exploração sensorial</div>
             <p class="step-text">
-              Com base nas respostas, eu analiso quais perfis de recusa aparecem
-              com mais força e como eles se combinam no comportamento alimentar
-              da criança.
+              A parte mais importante. Você aprende como apresentar alimentos de forma que seu filho explore com seus sentidos, não só a boca. Fazemos na prática, com alimentos reais.
             </p>
-            <span class="step-tag">Análise individual</span>
+            <span class="step-tag">Treino prático</span>
           </div>
           <div class="step-card reveal reveal-delay-2">
-            <div class="step-num">03</div>
-            <div class="step-title">
-              Nós conversamos sobre o caminho possível
-            </div>
+            <div class="step-title">Você recebe material personalizado</div>
             <p class="step-text">
-              No atendimento online, eu faço a devolutiva da análise, explico o
-              que pode estar travando a alimentação e mostro os primeiros passos
-              para conduzir o caso com mais clareza.
+              Após o atendimento, você recebe um documento com as orientações conversadas, a abordagem definida, lista de primeiros alimentos e como observar sensibilidades do seu filho.
             </p>
-            <span class="step-tag">Devolutiva online</span>
+            <span class="step-tag">Material orientativo</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="perfis">
+    <section class="diferenciais">
       <div class="container">
-        <div class="perfis-header reveal">
-          <div>
-            <span class="label">Os 6 perfis de recusa</span>
-            <h2 class="perfis-title">
-              Cada recusa tem<br />uma <em>lógica por trás.</em>
-            </h2>
-          </div>
-          <p class="perfis-note">
-            Identificar os perfis do seu filho é o que torna a condução possível
-            e assertiva.
+        <div class="diferenciais-header reveal">
+          <span class="label">O que é diferente aqui</span>
+          <h2 class="diferenciais-title">
+            Você não recebe<br /><em>dica genérica.</em> Você recebe<br /><em>método e prática.</em>
+          </h2>
+          <p class="diferenciais-subtitle">
+            A maioria das consultas de introdução alimentar foca em lista de alimentos e fases. Aqui a gente vai além, ensinando você a observar como seu filho sente cada alimento e prevenindo padrões de recusa desde agora.
           </p>
         </div>
-        <div class="perfis-grid">
-          <div class="perfil reveal" data-num="1">
-            <span class="perfil-badge">Perfil 1</span>
-            <div class="perfil-name">Sensível</div>
-            <div class="perfil-sub">A criança que sente demais</div>
-            <p class="perfil-desc">
-              Os sentidos dela percebem mais do que os seus. Morder um tomate e
-              sentir a parte gelatinosa, fria e escorregadia na boca é
-              insuportável.
+        <div class="diferenciais-grid">
+          <div class="diferencial-card reveal">
+            <div class="diferencial-icon">🧠</div>
+            <div class="diferencial-title">Identificamos os perfis de recusa desde agora</div>
+            <p class="diferencial-text">
+              A gente já observa como seu filho reage sensorialmente durante a introdução. Se tem sinais de sensibilidade, rigidez ou reatividade, a gente já começa a trabalhar com isso, prevenindo seletividade depois.
             </p>
           </div>
-          <div class="perfil reveal reveal-delay-1" data-num="2">
-            <span class="perfil-badge">Perfil 2</span>
-            <div class="perfil-name">Intenso</div>
-            <div class="perfil-sub">A criança que precisa de mais</div>
-            <p class="perfil-desc">
-              Os sentidos dela precisam de intensidade para processar o que está
-              comendo. Frango cozido não. Frango empanado e crocante, sim.
+          <div class="diferencial-card reveal reveal-delay-1">
+            <div class="diferencial-icon">✋</div>
+            <div class="diferencial-title">Treino prático em exploração sensorial</div>
+            <p class="diferencial-text">
+              Você aprende a oferecer alimentos de forma que desperte os sentidos do seu filho, não só a boca. Tocar, cheirar, explorar. Cada passo importa e você sai sabendo fazer.
             </p>
           </div>
-          <div class="perfil reveal reveal-delay-2" data-num="3">
-            <span class="perfil-badge">Perfil 3</span>
-            <div class="perfil-name">Rígido</div>
-            <div class="perfil-sub">
-              A criança que só aceita o que já conhece
-            </div>
-            <p class="perfil-desc">
-              Segurança para ela é saber exatamente o que vai vir no prato. O
-              nugget precisa ser da mesma marca. O feijão não pode tocar o
-              arroz.
+          <div class="diferencial-card reveal reveal-delay-2">
+            <div class="diferencial-icon">🛑</div>
+            <div class="diferencial-title">Prevenção de padrões de recusa</div>
+            <p class="diferencial-text">
+              Muita recusa alimentar depois começa aqui, na introdução. A gente trabalha para que seu filho aprenda a explorar, brincar e se familiarizar com alimentos de forma segura.
             </p>
           </div>
-          <div class="perfil reveal" data-num="4">
-            <span class="perfil-badge">Perfil 4</span>
-            <div class="perfil-name">Reativo</div>
-            <div class="perfil-sub">A criança que muda conforme o ambiente</div>
-            <p class="perfil-desc">
-              A recusa dela não começa no alimento. Começa no ambiente. Na avó,
-              sem pressão, ela experimenta. Em casa, recusa até o que costuma
-              aceitar.
-            </p>
-          </div>
-          <div class="perfil reveal reveal-delay-1" data-num="5">
-            <span class="perfil-badge">Perfil 5</span>
-            <div class="perfil-name">Traumatizado</div>
-            <div class="perfil-sub">A criança que associou comer ao perigo</div>
-            <p class="perfil-desc">
-              O corpo dela aprendeu que comer pode machucar. Teve um engasgo com
-              carne e passou a não aceitar mais nenhum tipo de carne.
-            </p>
-          </div>
-          <div class="perfil reveal reveal-delay-2" data-num="6">
-            <span class="perfil-badge">Perfil 6</span>
-            <div class="perfil-name">Desinteressado</div>
-            <div class="perfil-sub">A criança que não liga para comida</div>
-            <p class="perfil-desc">
-              A comida não é relevante para ela. Qualquer coisa é mais
-              interessante. Dá três garfadas no que adora e empurra o prato.
+          <div class="diferencial-card reveal reveal-delay-2">
+            <div class="diferencial-icon">💪</div>
+            <div class="diferencial-title">Apoio para mãe com seletividade</div>
+            <p class="diferencial-text">
+              Se você mesma tem dificuldade com certos alimentos, a gente trabalha isso. Porque é muito difícil oferecer alimentos que você não consegue comer. Aqui você aprende como fazer.
             </p>
           </div>
         </div>
@@ -1602,8 +1484,7 @@
               >Para quem é este atendimento</span
             >
             <h2 class="paraquem-title">
-              Para crianças que<br /><em>travam, sofrem</em><br />ou recusam
-              demais.
+              Para mães que querem<br /><em>fazer certo desde</em><br />o início.
             </h2>
             <ul class="paraquem-list">
               <li class="paraquem-item">
@@ -1620,8 +1501,7 @@
                   </svg>
                 </div>
                 <span class="paraquem-text"
-                  >Crianças que comem poucos alimentos e recusam quase
-                  tudo</span
+                  >Bebês entre 6 meses e 2 anos iniciando a introdução alimentar</span
                 >
               </li>
               <li class="paraquem-item">
@@ -1638,8 +1518,7 @@
                   </svg>
                 </div>
                 <span class="paraquem-text"
-                  >Crianças que recusam pela textura, cheiro ou aparência do
-                  alimento</span
+                  >Mães em dúvida entre BLW, papinha ou abordagem híbrida</span
                 >
               </li>
               <li class="paraquem-item">
@@ -1656,8 +1535,7 @@
                   </svg>
                 </div>
                 <span class="paraquem-text"
-                  >Crianças que travam ou sofrem intensamente na hora de
-                  comer</span
+                  >Mães ansiosas com segurança na alimentação, engasgo ou sinais de sensibilidade</span
                 >
               </li>
               <li class="paraquem-item">
@@ -1674,7 +1552,7 @@
                   </svg>
                 </div>
                 <span class="paraquem-text"
-                  >Crianças com dificuldade para comer fora de casa</span
+                  >Mães que têm seletividade alimentar e não sabem como oferecer alimentos diferentes</span
                 >
               </li>
               <li class="paraquem-item">
@@ -1691,41 +1569,21 @@
                   </svg>
                 </div>
                 <span class="paraquem-text"
-                  >Crianças com TEA, TDAH ou neurodivergência, especialmente
-                  quando a seletividade é intensa</span
-                >
-              </li>
-              <li class="paraquem-item">
-                <div class="paraquem-check">
-                  <svg
-                    width="9"
-                    height="9"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#c9a84c"
-                    stroke-width="2.5"
-                  >
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                </div>
-                <span class="paraquem-text"
-                  >Famílias que já tentaram tudo e ainda não entendem o que está
-                  travando</span
+                  >Qualquer mãe que quer que seu filho desenvolva uma relação saudável com comida desde o início</span
                 >
               </li>
             </ul>
           </div>
           <div class="paraquem-img-col reveal reveal-delay-1">
             <img
-              src="crianca.png"
-              alt="Criança na hora da refeição"
+              src="../images/bebe-mae.png"
+              alt="Bebê explorando alimentos"
               class="paraquem-img"
             />
             <div class="paraquem-img-overlay"></div>
             <div class="paraquem-img-card">
               <p class="paraquem-img-card-text">
-                Você olha pro seu filho na hora da comida e não entende o que
-                acontece com ele.
+                O que seu filho aprende agora sobre comida vai impactar como ele come para o resto da vida.
               </p>
               <p class="paraquem-img-card-author">
                 Dafni Paiva · @nutridafnipaiva
@@ -1740,7 +1598,7 @@
       <div class="container">
         <div class="sobre-grid">
           <div class="sobre-img-col reveal">
-            <img src="dafni-quem.png" alt="Dafni Paiva" class="sobre-img" />
+            <img src="../images/dafni-quem.png" alt="Dafni Paiva" class="sobre-img" />
             <div class="sobre-credential">
               <p class="sobre-credential-text">
                 <strong>Dafni Paiva</strong>Nutricionista · CRN3: 20.860<br />Especialista
@@ -1754,34 +1612,17 @@
               Antes de estudar<br />o tema, eu <em>vivi ele.</em>
             </h2>
             <p class="sobre-role">
-              Nutricionista · CRN3: 20.860 · Especialista em Seletividade
-              Alimentar · @nutridafnipaiva
+              Nutricionista · CRN3: 20.860 · Especialista em Seletividade Alimentar · @nutridafnipaiva
             </p>
             <p class="sobre-text">
-              Cresci ouvindo que era frescura. Por falta de compreensão, acabei
-              aceitando esse rótulo. Mas dentro de mim havia muito mais: culpa,
-              frustração, ansiedade e o desejo de comer coisas que meu corpo
-              simplesmente rejeitava.
+              Cresci ouvindo que era frescura. Por falta de compreensão, acabei aceitando esse rótulo. Mas dentro de mim havia muito mais: culpa, frustração, ansiedade e o desejo de comer coisas que meu corpo simplesmente rejeitava.
             </p>
             <p class="sobre-text">
-              Foi só na faculdade de Nutrição que uma professora observou meu
-              comportamento e me falou sobre seletividade alimentar. Fiz
-              especializações, me aprofundei no tema e desenvolvi um olhar
-              próprio sobre os padrões de recusa.
+              Quando comecei a estudar seletividade alimentar e a entender os perfis de recusa, tudo fez sentido. Consegui ampliar meu repertório, não através de insistência, mas através de compreensão.
             </p>
             <p class="sobre-text">
-              Usei tudo o que aprendi para desenvolver um método que me ajudou a
-              ampliar meu repertório alimentar.
-              <strong>E o que antes era uma dor virou propósito:</strong> ajudar
-              famílias a entenderem o filho com mais precisão, sem culpa e sem
-              tentativa e erro.
+              Agora trabalho ajudando mães a entender seus filhos desde o início, para que essa criança não precise viver a mesma confusão que eu vivi. <strong>A introdução alimentar consciente é o passo primeiro.</strong>
             </p>
-            <div class="sobre-blockquote">
-              <p class="sobre-blockquote-text">
-                A recusa do seu filho não é aleatória. Ela segue um padrão. E é
-                esse padrão que muda tudo quando você finalmente consegue ler.
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -1792,153 +1633,133 @@
         <div class="oferta-header reveal">
           <span class="label">Investimento</span>
           <h2 class="oferta-title">
-            Análise de Padrões<br />+ <em>Atendimento Individual</em>
+            Primeiros Sabores<br /><em>Escolha seu pacote</em>
           </h2>
           <p class="oferta-subtitle">
-            Uma análise individualizada da recusa alimentar do seu filho, com
-            formulário prévio, devolutiva online de 1h a 1h30 e orientação
-            inicial para entender por onde começar.
+            Atendimento avulso ou pacotes de acompanhamento ao longo da introdução alimentar do seu filho.
+          </p>
+          <p style="margin-top: 20px; font-size: 14px; color: var(--slate);">
+            <a href="https://wa.link/oypl5v" target="_blank" rel="noopener" class="whatsapp-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.272-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.946 1.347l-.355.203-.368-.057L3.798 3.6l.54 1.646.033.38-.136.319a9.814 9.814 0 001.378 3.843c.146.33.282.658.382.98l.06.223-.214.23a9.906 9.906 0 01-2.513 1.887l-.347.198.139.372.01.015.062.18c.128.375.68 2.025 1.483 2.867.38.413.835.74 1.311.925.27.11.568.155.84.13.299-.028.647-.129.95-.25.314-.127.649-.297.933-.52 1.55 1.247 3.89 1.95 6.455 1.95 3.584 0 6.5-2.916 6.5-6.5s-2.916-6.5-6.5-6.5z"/>
+              </svg>
+              Tire suas dúvidas pelo WhatsApp
+            </a>
           </p>
         </div>
-        <div class="oferta-card reveal">
-          <ul class="oferta-includes">
-            <li class="oferta-include">
-              <div class="oferta-include-icon">
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <rect x="9" y="9" width="13" height="13" rx="2" />
-                  <path
-                    d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
-                  />
-                </svg>
-              </div>
-              <div>
-                <div class="oferta-include-title">
-                  Formulário detalhado sobre a recusa alimentar
-                </div>
-                <p class="oferta-include-text">
-                  Você preenche antes do atendimento para que eu entenda o
-                  histórico, os comportamentos, os alimentos aceitos, as recusas
-                  e as reações do seu filho na hora de comer.
-                </p>
-              </div>
-            </li>
-            <li class="oferta-include">
-              <div class="oferta-include-icon">
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-              </div>
-              <div>
-                <div class="oferta-include-title">
-                  Análise individual dos perfis de recusa
-                </div>
-                <p class="oferta-include-text">
-                  Eu avalio as respostas do formulário e identifico quais perfis
-                  estão mais presentes no caso do seu filho, considerando que
-                  uma mesma criança pode apresentar mais de um padrão ao mesmo
-                  tempo.
-                </p>
-              </div>
-            </li>
-            <li class="oferta-include">
-              <div class="oferta-include-icon">
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                </svg>
-              </div>
-              <div>
-                <div class="oferta-include-title">
-                  Atendimento online individual de 1h a 1h30
-                </div>
-                <p class="oferta-include-text">
-                  Na videochamada, eu faço a devolutiva da análise, explico o
-                  que pode estar por trás das recusas e mostro um caminho
-                  inicial de condução para a realidade da sua família.
-                </p>
-              </div>
-            </li>
-            <li class="oferta-include">
-              <div class="oferta-include-icon">
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
-                  />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="16" y1="13" x2="8" y2="13" />
-                  <line x1="16" y1="17" x2="8" y2="17" />
-                </svg>
-              </div>
-              <div>
-                <div class="oferta-include-title">
-                  Documento com a avaliação dos padrões
-                </div>
-                <p class="oferta-include-text">
-                  Você recebe um registro com os principais pontos avaliados no
-                  formulário, os padrões identificados e os direcionamentos
-                  iniciais conversados no atendimento.
-                </p>
-              </div>
-            </li>
-          </ul>
-          <div class="oferta-price-block">
-            <div class="oferta-price-label">Investimento especial</div>
-            <div class="oferta-price-before">
-              De <span>R$ 397</span> por
-              <strong class="oferta-discount-badge">Economize R$ 50</strong>
+        <div class="oferta-grid">
+          <!-- CARD 1: AVULSA -->
+          <div class="oferta-card reveal">
+            <div class="oferta-card-title">Atendimento Avulso Primeiros Sabores</div>
+            <div class="oferta-card-subtitle">Atendimento online único para orientações</div>
+            <ul class="oferta-includes">
+              <li class="oferta-include">1 atendimento online de 1h a 1h30</li>
+              <li class="oferta-include">Escolha da abordagem (BLW, papinha ou híbrido)</li>
+              <li class="oferta-include">Orientações sobre sinais de prontidão</li>
+              <li class="oferta-include">Se você tiver seletividade alimentar: apoio e estratégias para oferecer alimentos que você mesma não consegue comer</li>
+              <li class="oferta-include">Dúvidas sobre introdução alimentar e prevenção de seletividade alimentar infantil</li>
+              <li class="oferta-include">Material de Treino em exploração sensorial</li>
+              <li class="oferta-include">Material personalizado das orientações do atendimento</li>
+              <li class="oferta-include">Após a compra, conversaremos via whatsapp para realizarmos o agendamento. Caso tenha qualquer dúvida antes da compra, entre em contato no ícone de whatsapp da página de vendas ou no direct do meu perfil do Instagram @nutridafnipaiva</li>
+            </ul>
+            <div class="oferta-price-block" style="margin-top: auto; margin-bottom: 28px;">
+              <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px;">Investimento</div>
+              <div class="oferta-price"><sup>R$</sup>297</div>
+              <div style="font-size: 13px; color: var(--muted); margin-top: 8px;">Pix ou parcelado em até 12x no cartão</div>
             </div>
-            <div class="oferta-price"><sup>R$</sup>347</div>
-            <div class="oferta-price-note">
-              à vista via Pix ou parcelado no cartão
-            </div>
-            <div class="oferta-price-parcel">
-              em até 12x de <strong>R$ 35,89</strong>
-            </div>
+            <a href="https://pay.kiwify.com.br/CK8ejn1" class="oferta-btn">
+              Contratar agora
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" /></svg
+              >
+            </a>
           </div>
-          <a href="https://pay.kiwify.com.br/BcJB9n6" class="oferta-btn"
-            >Quero começar!
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" /></svg
-          ></a>
-          <div class="oferta-footer-note">
-            <span>✓</span> Pagamento seguro &nbsp;·&nbsp;
-            <span>✓</span> Atendimento online
+
+          <!-- CARD 2: COMBO 3 -->
+          <div class="oferta-card featured reveal reveal-delay-1">
+            <div class="oferta-card-title">Combo Prático</div>
+            <div class="oferta-card-subtitle">3 sessões de atendimento online</div>
+            <ul class="oferta-includes">
+              <li class="oferta-include">3 atendimentos online de 1h a 1h30 cada</li>
+              <li class="oferta-include">Escolha da abordagem (BLW, papinha ou híbrido)</li>
+              <li class="oferta-include">Você escolhe o ritmo e a frequência (quinzenal, mensal, conforme sua necessidade)</li>
+              <li class="oferta-include">Prazo: até 12 meses do bebê</li>
+              <li class="oferta-include">Orientações sobre sinais de prontidão</li>
+              <li class="oferta-include">Observação do desenvolvimento sensorial, relacionado a alimentação, ao longo das sessões</li>
+              <li class="oferta-include">Acompanhamento da evolução do seu filho na introdução</li>
+              <li class="oferta-include">Orientação sobre seletividade alimentar</li>
+              <li class="oferta-include">Se você tiver seletividade alimentar: apoio e estratégias para oferecer alimentos que você mesma não consegue comer</li>
+              <li class="oferta-include">Material personalizado após cada atendimento</li>
+              <li class="oferta-include">Após a compra, conversaremos via whatsapp para realizarmos os agendamentos. Caso tenha qualquer dúvida antes da compra, entre em contato no ícone de whatsapp da página de vendas ou no direct do meu perfil do Instagram @nutridafnipaiva</li>
+            </ul>
+            <div class="oferta-price-block" style="margin-top: auto; margin-bottom: 28px;">
+              <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px;">Investimento</div>
+              <div class="oferta-price"><sup>R$</sup>266</div>
+              <div style="font-size: 13px; color: var(--muted); margin-top: 8px;">por sessão</div>
+              <div style="font-size: 14px; color: var(--slate); font-weight: 500; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(110, 110, 143, 0.1);">Total: R$ 798</div>
+              <div style="font-size: 13px; color: var(--muted); margin-top: 8px;">Pix ou parcelado em até 12x no cartão</div>
+            </div>
+            <a href="https://pay.kiwify.com.br/7gQ41sd" class="oferta-btn">
+              Contratar agora
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" /></svg
+              >
+            </a>
+          </div>
+
+          <!-- CARD 3: ACOMPANHAMENTO 5 -->
+          <div class="oferta-card reveal reveal-delay-2">
+            <div class="oferta-card-title">Acompanhamento<br />Completo</div>
+            <div class="oferta-card-subtitle">5 atendimentos até 12 meses do bebê (você escolhe o ritmo)</div>
+            <ul class="oferta-includes">
+              <li class="oferta-include">5 atendimentos online de 1h a 1h30 cada</li>
+              <li class="oferta-include">Escolha da abordagem (BLW, papinha ou híbrido)</li>
+              <li class="oferta-include">Você escolhe o ritmo e a frequência (quinzenal, mensal, conforme sua necessidade)</li>
+              <li class="oferta-include">Prazo: até 12 meses do bebê</li>
+              <li class="oferta-include">Acompanhamento contínuo da introdução alimentar</li>
+              <li class="oferta-include">Observação do desenvolvimento sensorial, relacionado a alimentação, ao longo das sessões</li>
+              <li class="oferta-include">Observação e ajuste conforme sinais de sensibilidade do seu filho</li>
+              <li class="oferta-include">Orientação sobre seletividade alimentar</li>
+              <li class="oferta-include">Se você tiver seletividade alimentar: apoio e estratégias para oferecer alimentos que você mesma não consegue comer</li>
+              <li class="oferta-include">Suporte para dúvidas entre os atendimentos</li>
+              <li class="oferta-include">Material personalizado após cada atendimento</li>
+              <li class="oferta-include">Após a compra, conversaremos via whatsapp para realizarmos os agendamentos. Caso tenha qualquer dúvida antes da compra, entre em contato no ícone de whatsapp da página de vendas ou no direct do meu perfil do Instagram @nutridafnipaiva</li>
+              <li class="oferta-include">Escolhendo essa opção você tem 5 atendimentos pelo preço de 4 atendimentos avulsos e garante acompanhamento para a fase que mais gera dúvidas alimentares e impacta até a vida adulta</li>
+            </ul>
+            <div class="oferta-price-block" style="margin-top: auto; margin-bottom: 28px;">
+              <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px;">Investimento</div>
+              <div class="oferta-price"><sup>R$</sup>237,60</div>
+              <div style="font-size: 13px; color: var(--muted); margin-top: 8px;">por sessão</div>
+              <div style="font-size: 14px; color: var(--slate); font-weight: 500; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(110, 110, 143, 0.1);">Total: R$ 1.188</div>
+              <div style="font-size: 13px; color: var(--muted); margin-top: 8px;">Pix ou parcelado em até 12x no cartão</div>
+            </div>
+            <a href="https://pay.kiwify.com.br/rq5PxCt" class="oferta-btn">
+              Contratar agora
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" /></svg
+              >
+            </a>
           </div>
         </div>
       </div>
@@ -1953,7 +1774,7 @@
         <div class="faq-list reveal">
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
-              Como funciona após a compra?
+              Estou grávida. Vale a pena contratar agora ou espero o bebê nascer?
               <div class="faq-icon">
                 <svg
                   width="11"
@@ -1969,22 +1790,32 @@
               </div>
             </button>
             <div class="faq-a">
-              Após a compra você acessará a plataforma Kiwify com seu login e
-              senha (a conta pode ser criada gratuitamente se ainda não
-              possuir). Aparecerá o Produto "Método Padrão que Liberta" na sua
-              área de membros. Acesse e você terá as orientações iniciais e o
-              direcionamento para responder o formulário. Entro em contato pelo
-              whatsapp informado no formulário em até 5 dias úteis para
-              agendarmos o atendimento individual online. Neste atendimento
-              online você receberá todo o retorno da análise do formulário, as
-              orientações em como lidar com este cenário e os próximos passos.
-              Também receberá um documento com o que foi avaliado do formulário
-              dos padrões de recusa.
+            Sim, vale. Você pode contratar a Consulta Avulsa agora pra se preparar e tirar dúvidas ainda gestante. Ou contratar o Combo Prático ou Acompanhamento Completo agora, fazer o primeiro atendimento comigo ainda grávida, e agendar os demais pra quando o bebê estiver perto da introdução e na idade da introdução. Assim você chega preparada, sabendo exatamente o que fazer, e tem acompanhamento em cada fase da introdução.            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Meu filho tem poucos meses. Quando é o melhor momento pra fazer essa consulta?
+              <div class="faq-icon">
+                <svg
+                  width="11"
+                  height="11"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </div>
+            </button>
+            <div class="faq-a">
+              Quando o bebê já nasceu, o ideal é fazer entre 4 e 5 meses de vida para avaliarmos sinais de prontidão, idade corrigida se for o caso (para prematuros) e vocês estarem prontos pra começar a introdução. Assim você chega preparada, sem pressa, e já começa com segurança.
             </div>
           </div>
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
-              O que acontece depois do atendimento?
+              Meu filho já começou a introdução alimentar sem preparação. Ainda vale a pena fazer a consulta?
               <div class="faq-icon">
                 <svg
                   width="11"
@@ -2000,15 +1831,12 @@
               </div>
             </button>
             <div class="faq-a">
-              Você sai com clareza sobre os perfis do seu filho e um plano de
-              condução possível. Se necessário, é possível dar continuidade com
-              pacotes de acompanhamento, avaliados caso a caso no próprio
-              atendimento.
+              Com certeza. A gente revisa o que você já começou, eu treino você melhor em exploração sensorial (coisa que muita gente não faz no início), e a gente identifica padrões de recusa alimentar que possam estar começando.            
             </div>
           </div>
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
-              Para qual faixa etária é esse atendimento?
+              Como funciona o agendamento? Posso escolher dias e horários?
               <div class="faq-icon">
                 <svg
                   width="11"
@@ -2024,16 +1852,12 @@
               </div>
             </button>
             <div class="faq-a">
-              A seletividade alimentar aparece mais comumente em crianças de 1 ano e 6 meses a 6 anos, podendo se prolongar até o final da infância. Se o seu filho tem
-              menos de 1 ano e 6 meses, provavelmente ainda está na fase de
-              introdução alimentar, onde algumas recusas são completamente
-              esperadas.
-              Esse método também é indicado para adultos.
+              Sim. Depois que você contrata, entro em contato via WhatsApp pra você escolher dias e horários que funcionam melhor pra você.
             </div>
           </div>
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
-              Funciona para crianças com TEA, TDAH ou outra neurodivergência?
+              E se eu tiver seletividade alimentar? Como ofereço alimentos que não como?
               <div class="faq-icon">
                 <svg
                   width="11"
@@ -2049,11 +1873,7 @@
               </div>
             </button>
             <div class="faq-a">
-              Sim. A seletividade alimentar é muito comum em crianças
-              neurodivergentes e o Método Padrão que Liberta é igualmente
-              aplicável. A base são os 6 perfis de recusa sensorial, que
-              independem do diagnóstico. O processo pode ser mais intenso nesses
-              casos, mas o caminho existe.
+              Essa é uma situação bem comum. A gente trabalha isso no atendimento. Você não precisa "gostar" do alimento pra oferecer com segurança. A gente conversa sobre como apresentar, como falar sobre o alimento e como sua própria dificuldade pode estar passando para seu filho. Você sai sabendo como lidar com isso.
             </div>
           </div>
         </div>
@@ -2114,6 +1934,12 @@
         <p class="footer-copy" id="footer-copy"></p>
       </div>
     </footer>
+
+    <a href="https://wa.link/oypl5v" target="_blank" rel="noopener" class="whatsapp-button" title="Fale conosco no WhatsApp">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+    </a>
 
     <script>
       const nav = document.getElementById("nav");
