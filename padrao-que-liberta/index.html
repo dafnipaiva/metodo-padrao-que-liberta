@@ -20,6 +20,7 @@
         --slate: #6e6e8f;
         --slate-light: #e8e8f2;
         --gold: #c9a84c;
+        --gold-deep: #a8862f;
         --gold-light: #f5edd8;
         --white: #ffffff;
         --line: rgba(110, 110, 143, 0.14);
@@ -1034,6 +1035,108 @@
         border-radius: 999px;
       }
 
+      /* CONTINUIDADE / ACOMPANHAMENTO */
+      .oferta-stack {
+        max-width: 680px;
+        margin: 0 auto;
+      }
+      .oferta-connector {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 26px 0;
+      }
+      .oferta-connector-line {
+        width: 1px;
+        height: 24px;
+        background: var(--line);
+      }
+      .oferta-connector-text {
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--slate);
+      }
+      .oferta-card.acomp::before {
+        background: var(--gold);
+      }
+      .acomp-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--gold-light);
+        color: var(--gold-deep);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 5px 12px;
+        border-radius: 20px;
+        margin-bottom: 18px;
+      }
+      .oferta-card.acomp .oferta-title-inline {
+        font-family: var(--f-display);
+        font-size: 26px;
+        font-weight: 500;
+        line-height: 1.2;
+        margin-bottom: 8px;
+      }
+      .oferta-card.acomp .oferta-lead {
+        font-size: 14.5px;
+        font-weight: 300;
+        color: var(--ink2);
+        line-height: 1.7;
+        margin-bottom: 28px;
+      }
+      .oferta-card.acomp .oferta-include-icon {
+        background: var(--gold-light);
+        color: var(--gold-deep);
+      }
+      .oferta-price-per {
+        font-family: var(--f-body);
+        font-size: 20px;
+        font-weight: 400;
+        color: var(--muted);
+      }
+      .oferta-help {
+        max-width: 680px;
+        margin: 34px auto 0;
+        text-align: center;
+      }
+      .oferta-help-text {
+        font-size: 14.5px;
+        font-weight: 300;
+        color: var(--ink2);
+        line-height: 1.7;
+        margin-bottom: 18px;
+      }
+      .oferta-help-title {
+        font-family: var(--f-display);
+        font-style: italic;
+        font-size: 20px;
+        color: var(--ink);
+        margin-bottom: 8px;
+      }
+      .oferta-help-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        background: var(--slate);
+        color: var(--white);
+        font-size: 14px;
+        font-weight: 500;
+        padding: 13px 24px;
+        border-radius: 40px;
+        text-decoration: none;
+        transition: background 0.2s, transform 0.2s;
+      }
+      .oferta-help-btn:hover {
+        background: var(--ink);
+        transform: translateY(-2px);
+      }
+
       /* FAQ */
       .faq {
         background: var(--cream2);
@@ -1790,156 +1893,156 @@
     <section class="oferta" id="oferta">
       <div class="container oferta-inner">
         <div class="oferta-header reveal">
-          <span class="label">Investimento</span>
+          <span class="label">Atendimento</span>
           <h2 class="oferta-title">
-            Análise de Padrões<br />+ <em>Atendimento Individual</em>
+            O caminho certo<br /><em>pro seu filho</em>
           </h2>
           <p class="oferta-subtitle">
-            Uma análise individualizada da recusa alimentar do seu filho, com
-            formulário prévio, devolutiva online de 1h a 1h30 e orientação
-            inicial para entender por onde começar.
+            Comece entendendo o que trava a alimentação do seu filho. Se o caso
+            pedir, a gente segue junto para sustentar o que começou a mudar.
           </p>
         </div>
-        <div class="oferta-card reveal">
-          <ul class="oferta-includes">
+
+        <div class="oferta-stack">
+          <!-- LEITURA INICIAL -->
+          <div class="oferta-card reveal">
+            <ul class="oferta-includes">
             <li class="oferta-include">
-              <div class="oferta-include-icon">
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <rect x="9" y="9" width="13" height="13" rx="2" />
-                  <path
-                    d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
-                  />
-                </svg>
-              </div>
+              <div class="oferta-include-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg></div>
               <div>
-                <div class="oferta-include-title">
-                  Formulário detalhado sobre a recusa alimentar
-                </div>
-                <p class="oferta-include-text">
-                  Você preenche antes do atendimento para que eu entenda o
-                  histórico, os comportamentos, os alimentos aceitos, as recusas
-                  e as reações do seu filho na hora de comer.
-                </p>
+                <div class="oferta-include-title">Formulário detalhado sobre a recusa alimentar</div>
+                <p class="oferta-include-text">Você preenche antes do atendimento para que eu entenda o histórico, os comportamentos, os alimentos aceitos, as recusas e as reações do seu filho na hora de comer.</p>
               </div>
             </li>
             <li class="oferta-include">
-              <div class="oferta-include-icon">
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-              </div>
+              <div class="oferta-include-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg></div>
               <div>
-                <div class="oferta-include-title">
-                  Análise individual dos perfis de recusa
-                </div>
-                <p class="oferta-include-text">
-                  Eu avalio as respostas do formulário e identifico quais perfis
-                  estão mais presentes no caso do seu filho, considerando que
-                  uma mesma criança pode apresentar mais de um padrão ao mesmo
-                  tempo.
-                </p>
+                <div class="oferta-include-title">Análise individual dos perfis de recusa</div>
+                <p class="oferta-include-text">Eu avalio as respostas do formulário e identifico quais perfis estão mais presentes no caso do seu filho, considerando que uma mesma criança pode apresentar mais de um padrão ao mesmo tempo.</p>
               </div>
             </li>
             <li class="oferta-include">
-              <div class="oferta-include-icon">
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                </svg>
-              </div>
+              <div class="oferta-include-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /></svg></div>
               <div>
-                <div class="oferta-include-title">
-                  Atendimento online individual de 1h a 1h30
-                </div>
-                <p class="oferta-include-text">
-                  Na videochamada, eu faço a devolutiva da análise, explico o
-                  que pode estar por trás das recusas e mostro um caminho
-                  inicial de condução para a realidade da sua família.
-                </p>
+                <div class="oferta-include-title">Atendimento online individual de 1h a 1h30</div>
+                <p class="oferta-include-text">Na videochamada, eu faço a devolutiva da análise, explico o que pode estar por trás das recusas e mostro um caminho inicial de condução para a realidade da sua família.</p>
               </div>
             </li>
             <li class="oferta-include">
-              <div class="oferta-include-icon">
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
-                  />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="16" y1="13" x2="8" y2="13" />
-                  <line x1="16" y1="17" x2="8" y2="17" />
-                </svg>
-              </div>
+              <div class="oferta-include-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /></svg></div>
               <div>
-                <div class="oferta-include-title">
-                  Documento com a avaliação dos padrões
-                </div>
-                <p class="oferta-include-text">
-                  Você recebe um registro com os principais pontos avaliados no
-                  formulário, os padrões identificados e os direcionamentos
-                  iniciais conversados no atendimento.
-                </p>
+                <div class="oferta-include-title">Documento com a avaliação dos padrões e o plano de condução</div>
+                <p class="oferta-include-text">Você recebe um registro com os padrões de recusa identificados no seu filho e um plano com as orientações de como conduzir em casa, para consultar sempre que precisar.</p>
               </div>
             </li>
-          </ul>
-          <div class="oferta-price-block">
-            <div class="oferta-price-label">Investimento especial</div>
-            <div class="oferta-price-before">
-              De <span>R$ 397</span> por
-              <strong class="oferta-discount-badge">Economize R$ 50</strong>
+            <li class="oferta-include">
+              <div class="oferta-include-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg></div>
+              <div>
+                <div class="oferta-include-title">Retorno de 30 minutos, 15 dias depois</div>
+                <p class="oferta-include-text">Quinze dias após o atendimento, a gente se encontra de novo por 30 minutos para ver o que já mudou e ajustar a condução conforme a resposta do seu filho.</p>
+              </div>
+            </li>
+            <li class="oferta-include">
+              <div class="oferta-include-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg></div>
+              <div>
+                <div class="oferta-include-title">15 dias de suporte no WhatsApp</div>
+                <p class="oferta-include-text">Entre a consulta e o retorno, você tem um canal comigo no WhatsApp, com hora combinada, para as dúvidas do dia a dia, sem ficar no escuro.</p>
+              </div>
+            </li>
+            </ul>
+            <div class="oferta-price-block">
+              <div class="oferta-price-label">Leitura Inicial</div>
+              <div class="oferta-price-before">
+                De <span>R$ 397</span> por
+                <strong class="oferta-discount-badge">Economize R$ 50</strong>
+              </div>
+              <div class="oferta-price"><sup>R$</sup>347</div>
+              <div class="oferta-price-note">à vista via Pix ou parcelado no cartão</div>
+              <div class="oferta-price-parcel">em até 12x de <strong>R$ 35,89</strong></div>
             </div>
-            <div class="oferta-price"><sup>R$</sup>347</div>
-            <div class="oferta-price-note">
-              à vista via Pix ou parcelado no cartão
-            </div>
-            <div class="oferta-price-parcel">
-              em até 12x de <strong>R$ 35,89</strong>
-            </div>
-          </div>
-          <a href="https://pay.kiwify.com.br/BcJB9n6" class="oferta-btn"
-            >Quero começar!
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
+            <a href="https://pay.kiwify.com.br/BcJB9n6" class="oferta-btn"
+              >Começar pela leitura <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg></a
             >
-              <path d="M5 12h14M12 5l7 7-7 7" /></svg
-          ></a>
-          <div class="oferta-footer-note">
-            <span>✓</span> Pagamento seguro &nbsp;·&nbsp;
-            <span>✓</span> Atendimento online
+            <div class="oferta-footer-note">
+              <span>&#10003;</span> Pagamento seguro &nbsp;·&nbsp;
+              <span>&#10003;</span> Atendimento online
+            </div>
           </div>
+
+          <div class="oferta-connector reveal">
+            <div class="oferta-connector-line"></div>
+            <div class="oferta-connector-text">Se o caso pedir continuidade</div>
+            <div class="oferta-connector-line"></div>
+          </div>
+
+          <!-- ACOMPANHAMENTO MENSAL -->
+          <div class="oferta-card acomp reveal">
+            <span class="acomp-badge">Acompanhamento · 3 meses</span>
+            <div class="oferta-title-inline">Acompanhamento Mensal</div>
+            <p class="oferta-lead">
+              A leitura mostra o que trava. O acompanhamento sustenta essa
+              clareza mês a mês, para você não voltar para o escuro quando a
+              rotina começa a testar.
+            </p>
+            <ul class="oferta-includes">
+            <li class="oferta-include">
+              <div class="oferta-include-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></svg></div>
+              <div>
+                <div class="oferta-include-title">Tudo o que está na Leitura Inicial</div>
+                <p class="oferta-include-text">O acompanhamento começa pela mesma leitura completa: formulário, consulta, documento e o plano de condução.</p>
+              </div>
+            </li>
+            <li class="oferta-include">
+              <div class="oferta-include-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M3 10h18M8 2v4M16 2v4" /></svg></div>
+              <div>
+                <div class="oferta-include-title">Uma consulta por mês, durante 3 meses</div>
+                <p class="oferta-include-text">A cada mês a gente se encontra para observar o que avançou, o que ainda trava e recalibrar o caminho conforme seu filho responde.</p>
+              </div>
+            </li>
+            <li class="oferta-include">
+              <div class="oferta-include-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg></div>
+              <div>
+                <div class="oferta-include-title">Suporte no WhatsApp durante os 3 meses</div>
+                <p class="oferta-include-text">O canal fica aberto entre as consultas, com hora combinada, para sustentar a rotina e você não voltar para o escuro no meio do processo.</p>
+              </div>
+            </li>
+            <li class="oferta-include">
+              <div class="oferta-include-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3 8 4-16 3 8h4" /></svg></div>
+              <div>
+                <div class="oferta-include-title">Observação e ajuste de rota do começo ao fim</div>
+                <p class="oferta-include-text">Em vez de uma orientação única, a condução vai sendo ajustada ao longo dos três meses, com base no que realmente acontece nas refeições.</p>
+              </div>
+            </li>
+            </ul>
+            <div class="oferta-price-block">
+              <div class="oferta-price-label">Investimento</div>
+              <div class="oferta-price-before">
+                De <span>R$ 347</span> a consulta, por
+              </div>
+              <div class="oferta-price"><sup>R$</sup>287 <span class="oferta-price-per">a consulta</span></div>
+              <div class="oferta-price-note">3 consultas em 3 meses · total de R$ 861</div>
+              <div class="oferta-price-parcel">em até 12x no cartão</div>
+            </div>
+            <!-- TODO: troque o href abaixo pelo link de checkout da Kiwify quando o produto do acompanhamento estiver criado -->
+            <a href="https://api.whatsapp.com/send?phone=5511997999589&amp;text=Oi%20Dafni!%20Tenho%20interesse%20no%20acompanhamento%20mensal%20do%20seu%20m%C3%A9todo." target="_blank" rel="noopener" class="oferta-btn"
+              >Quero o acompanhamento <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg></a
+            >
+            <div class="oferta-footer-note">
+              <span>&#10003;</span> Continuidade da consulta &nbsp;·&nbsp;
+              <span>&#10003;</span> Atendimento online
+            </div>
+          </div>
+        </div>
+
+        <div class="oferta-help reveal">
+          <div class="oferta-help-title">Ainda com dúvida?</div>
+          <p class="oferta-help-text">
+            Me manda uma mensagem no WhatsApp. A gente conversa sobre o caso do
+            seu filho e eu te digo por onde começar. Você não decide isso sozinha.
+          </p>
+          <a href="https://api.whatsapp.com/send?phone=5511997999589&amp;text=Oi%20Dafni!%20Vim%20pela%20p%C3%A1gina%20e%20queria%20entender%20por%20onde%20come%C3%A7ar%20com%20a%20alimenta%C3%A7%C3%A3o%20do%20meu%20filho." target="_blank" rel="noopener" class="oferta-help-btn"
+            >Falar comigo no WhatsApp <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg></a
+          >
         </div>
       </div>
     </section>
@@ -2001,9 +2104,11 @@
             </button>
             <div class="faq-a">
               Você sai com clareza sobre os perfis do seu filho e um plano de
-              condução possível. Se necessário, é possível dar continuidade com
-              pacotes de acompanhamento, avaliados caso a caso no próprio
-              atendimento.
+              condução possível. Se o caso pedir continuidade, existe o
+              Acompanhamento Mensal: uma consulta por mês durante três meses, com
+              suporte no WhatsApp entre elas, para sustentar o processo na
+              rotina. A gente avalia juntas, no próprio atendimento, se o seu
+              caso precisa disso ou se a leitura inicial já resolve.
             </div>
           </div>
           <div class="faq-item">
